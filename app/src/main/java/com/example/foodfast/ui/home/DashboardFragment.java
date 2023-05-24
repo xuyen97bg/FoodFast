@@ -13,6 +13,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.example.foodfast.databinding.FragmentDashboardBinding;
+import com.example.foodfast.model.AsyncState;
+import com.example.foodfast.model.Category;
 import com.example.foodfast.utils.Utils;
 
 import gun0912.tedimagepicker.builder.TedImagePicker;
@@ -37,6 +39,7 @@ public class DashboardFragment extends Fragment {
                 }
                 case SUCCESS: {
                     Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                    viewModel.state.setValue(AsyncState.UNINITIALIZED);
                 }
             }
         });
@@ -49,7 +52,8 @@ public class DashboardFragment extends Fragment {
         int discount = Integer.parseInt(binding.discount.getText().toString());
         String description = binding.description.getText().toString();
         int category = Integer.parseInt(binding.category.getText().toString());
-        viewModel.add(getContext(),discount,description,price,title,category,coverPhotoURL);
+        Category category1 = new Category("1","Bánh mỳ");
+        viewModel.add(getContext(),discount,description,price,title,category1,coverPhotoURL);
     }
 
     private void pickImage() {

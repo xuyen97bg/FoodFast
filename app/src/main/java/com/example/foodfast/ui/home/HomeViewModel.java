@@ -12,6 +12,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.foodfast.model.AsyncState;
+import com.example.foodfast.model.Category;
 import com.example.foodfast.model.Food;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,7 +35,7 @@ public class HomeViewModel extends ViewModel {
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
     public MutableLiveData<List<Food>> listFoodLive = new MutableLiveData<>();
-    private List<Food> listFood = new ArrayList<>();
+    private final List<Food> listFood = new ArrayList<>();
     public MutableLiveData<AsyncState> state = new MutableLiveData<>();
 //    public MutableLiveData<AsyncState> stateInternet;
 
@@ -46,7 +47,7 @@ public class HomeViewModel extends ViewModel {
 //        stateInternet.setValue(AsyncState.UNINITIALIZED);
     }
 
-    public void add(final Context context, final int discount, final String description, final int price, final String title, final int category, final Uri coverPhotoURL) {
+    public void add(final Context context, final int discount, final String description, final int price, final String title, final Category category, final Uri coverPhotoURL) {
         state.setValue(AsyncState.LOADING);
         databaseReference = FirebaseDatabase.getInstance().getReference(FOOD_REFERENCE);
         if (isNetworkAvailable(context)) {
@@ -69,14 +70,12 @@ public class HomeViewModel extends ViewModel {
                         public void onComplete(@NonNull Task<Uri> task) {
                             if (task.isSuccessful()) {
                                 Uri downloadURi = task.getResult();
-                                Food food = new Food(title, price, discount, description, category, downloadURi.toString());
+                                Food food = new Food(uniqueKey, title, price, discount, description, category, downloadURi.toString());
                                 databaseReference.child(uniqueKey).setValue(food);
                             }
                             state.setValue(AsyncState.SUCCESS);
                         }
                     });
-                    Food food = new Food(uniqueKey, title, price, discount, description, category, coverPhotoURL.toString());
-                    databaseReference.child(uniqueKey).setValue(food);
                 }
 
                 @Override
@@ -121,40 +120,42 @@ public class HomeViewModel extends ViewModel {
     }
 
     // edit book according to the id
-    public void edit(final Context context, final String id, final int discount, final String description, final int price, final String title, final int category, final Uri coverPhotoURL) {
+    public void edit(final Context context, final String id, final int discount, final String description, final int price, final String title, final Category category, final Uri coverPhotoURL) {
         state.setValue(AsyncState.LOADING);
         databaseReference = FirebaseDatabase.getInstance().getReference(FOOD_REFERENCE).child(id);
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
-                storageReference = FirebaseStorage.getInstance().getReference().child(id).child(FOOD_STORAGE_PATH + coverPhotoURL.getLastPathSegment());
-                StorageTask storageTask = storageReference.putFile(coverPhotoURL);
-                Task<Uri> uriTask = storageTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                    @Override
-                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> taskSnapshot) throws Exception {
-                        if (!taskSnapshot.isSuccessful()) {
-                            throw taskSnapshot.getException();
+        if (isNetworkAvailable(context)) {
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+                    storageReference = FirebaseStorage.getInstance().getReference().child(id).child(FOOD_STORAGE_PATH + coverPhotoURL.getLastPathSegment());
+                    StorageTask storageTask = storageReference.putFile(coverPhotoURL);
+                    Task<Uri> uriTask = storageTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        @Override
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> taskSnapshot) throws Exception {
+                            if (!taskSnapshot.isSuccessful()) {
+                                throw taskSnapshot.getException();
+                            }
+                            return storageReference.getDownloadUrl();
                         }
-                        return storageReference.getDownloadUrl();
-                    }
-                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Uri> task) {
-                        if (task.isSuccessful()) {
-                            Uri downloadURi = task.getResult();
-                            Food food = new Food(title, price, discount, description, category, downloadURi.toString());
-                            databaseReference.setValue(food);
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                Uri downloadURi = task.getResult();
+                                Food food = new Food(title, price, discount, description, category, downloadURi.toString());
+                                databaseReference.setValue(food);
+                            }
+                            state.setValue(AsyncState.SUCCESS);
+                            all();
                         }
-                        state.setValue(AsyncState.SUCCESS);
-                        all();
-                    }
-                });
-            }
+                    });
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+        }
     }
 
     // remove book from the database
