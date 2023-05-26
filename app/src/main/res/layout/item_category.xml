@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_item"
+    android:layout_width="wrap_content"
+    android:layout_height="43dp"
+    android:gravity="center"
+    android:background="@drawable/bg_category_no_select"
+    android:orientation="horizontal"
+    android:layout_marginEnd="12dp">
+
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="8dp"
+        app:srcCompat="@drawable/img_category_1"
+        android:contentDescription="@string/no_img" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="20dp"
+        style="@style/font_18_black_medium"
+        android:text="Burger"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/name_selected"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="20dp"
+        style="@style/TextCategorySelected"
+        android:text="Burger"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

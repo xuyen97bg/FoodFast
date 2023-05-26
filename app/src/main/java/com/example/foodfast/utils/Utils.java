@@ -2,6 +2,9 @@ package com.example.foodfast.utils;
 
 import android.Manifest;
 import android.app.Activity;
+import android.os.Build;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.inputmethod.InputMethodManager;
 
 import com.gun0912.tedpermission.PermissionListener;
@@ -37,5 +40,4 @@ public class Utils {
                 .setPermissions(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
                 .check();
     }
-
 }

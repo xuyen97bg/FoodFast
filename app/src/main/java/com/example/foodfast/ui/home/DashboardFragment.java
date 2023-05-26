@@ -2,6 +2,7 @@ package com.example.foodfast.ui.home;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,13 +53,14 @@ public class DashboardFragment extends Fragment {
         int discount = Integer.parseInt(binding.discount.getText().toString());
         String description = binding.description.getText().toString();
         int category = Integer.parseInt(binding.category.getText().toString());
-        Category category1 = new Category("1","Bánh mỳ");
+        Category category1 = new Category("1","Bánh mỳ","salksjg");
         viewModel.add(getContext(),discount,description,price,title,category1,coverPhotoURL);
     }
 
     private void pickImage() {
         Utils.requestPermissions();
         TedImagePicker.with(getActivity()).start(uri -> {
+            Log.d("URL image", uri.toString());
             Glide.with(this).load(uri).into(binding.urlImage);
             coverPhotoURL = uri;
         });

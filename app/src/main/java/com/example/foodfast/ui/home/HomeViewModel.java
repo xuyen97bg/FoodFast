@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.foodfast.model.AsyncState;
 import com.example.foodfast.model.Category;
 import com.example.foodfast.model.Food;
+import com.example.foodfast.utils.Utils;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,18 +39,16 @@ public class HomeViewModel extends ViewModel {
     public MutableLiveData<List<Food>> listFoodLive = new MutableLiveData<>();
     private final List<Food> listFood = new ArrayList<>();
     public MutableLiveData<AsyncState> state = new MutableLiveData<>();
-//    public MutableLiveData<AsyncState> stateInternet;
-
     public static final String FOOD_REFERENCE = "Food";
     public static final String FOOD_STORAGE_PATH = "cover_photo/";
 
     public HomeViewModel() {
         state.setValue(AsyncState.UNINITIALIZED);
-//        stateInternet.setValue(AsyncState.UNINITIALIZED);
     }
 
     public void add(final Context context, final int discount, final String description, final int price, final String title, final Category category, final Uri coverPhotoURL) {
         state.setValue(AsyncState.LOADING);
+        Utils.requestPermissions();
         databaseReference = FirebaseDatabase.getInstance().getReference(FOOD_REFERENCE);
         if (isNetworkAvailable(context)) {
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -82,6 +82,8 @@ public class HomeViewModel extends ViewModel {
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
             });
+        }else {
+            Toast.makeText(context, "Lỗi kết nối mạng", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -122,6 +124,7 @@ public class HomeViewModel extends ViewModel {
     // edit book according to the id
     public void edit(final Context context, final String id, final int discount, final String description, final int price, final String title, final Category category, final Uri coverPhotoURL) {
         state.setValue(AsyncState.LOADING);
+        Utils.requestPermissions();
         databaseReference = FirebaseDatabase.getInstance().getReference(FOOD_REFERENCE).child(id);
         if (isNetworkAvailable(context)) {
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -155,6 +158,8 @@ public class HomeViewModel extends ViewModel {
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
             });
+        }else {
+            Toast.makeText(context, "Lỗi kết nối mạng", Toast.LENGTH_SHORT).show();
         }
     }
 

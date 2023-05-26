@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="font_12_grey_medium">
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/svn_poppins_medium</item>
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="MitaInputLayoutLogin" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxCornerRadiusTopStart">7dp</item>
+        <item name="boxCornerRadiusTopEnd">7dp</item>
+        <item name="boxCornerRadiusBottomStart">7dp</item>
+        <item name="boxCornerRadiusBottomEnd">7dp</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxBackgroundColor">#FFF0F0</item>
+        <item name="startIconTint">@color/black</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+    </style>
+
+    <style name="TextCategorySelected">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:shadowColor">@color/black</item>
+        <item name="android:fontFamily">@font/svn_poppins_medium</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">1</item>
+    </style>
+
+    <style name="font_18_black_medium">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/svn_poppins_medium</item>
+    </style>
+
+    <style name="font_15_black_medium">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">@font/svn_poppins_medium</item>
+    </style>
+
+    <style name="font_10_white_medium">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:fontFamily">@font/svn_poppins_medium</item>
+    </style>
+    <style name="font_14_primary_medium">
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/svn_poppins_medium</item>
+    </style>
+
+<!--    app:backgroundColor="@color/white"-->
+<!--    app:indicatorColor="@color/pink"-->
+<!--    app:indicatorRadius="12dp"-->
+<!--    app:cornerRadius="22dp"-->
+<!--    app:corners="all"-->
+<!--    app:sideMargins="0dp"-->
+<!--    app:itemPadding="15dp"-->
+<!--    app:textColor="@color/black"-->
+<!--    app:badgeColor="@color/red"-->
+<!--    app:itemFontFamily="@font/svn_poppins_regular"-->
+<!--    app:textSize="12sp"-->
+<!--    app:iconSize="24dp"-->
+<!--    app:iconTint="@color/pink"-->
+<!--    app:iconTintActive="@color/primary"-->
+<!--    app:activeItem="1"-->
+<!--    app:duration="500" />-->
+    <style name="bottomNav" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="badgeTextColor">@color/red</item>
+    </style>
+</resources>

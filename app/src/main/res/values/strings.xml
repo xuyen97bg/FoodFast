@@ -2,5 +2,12 @@
     <string name="app_name">FoodFast</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_notifications">Thông báo</string>
+    <string name="no_img">no img</string>
+    <string name="location_example">Trịnh Văn Bô, Hà Nội</string>
+    <string name="search">Tìm kiếm</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_history">Hóa đơn</string>
+    <string name="title_cart">Giỏ hàng</string>
 </resources>

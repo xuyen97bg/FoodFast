@@ -1,70 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_height="wrap_content">
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        app:cardCornerRadius="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="10dp"
+    android:layout_marginEnd="25dp"
+    android:layout_marginStart="5dp"
+    app:cardCornerRadius="10dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <RelativeLayout
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/discount"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/img_food"
-                android:layout_width="192dp"
-                android:layout_height="142dp"
-                android:scaleType="centerCrop" />
+            android:layout_height="wrap_content"
+            style="@style/font_10_white_medium"
+            android:background="@drawable/bg_discount"
+            android:paddingHorizontal="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:text="Giảm 10%"/>
 
-            <TextView
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="120dp"
+            android:layout_height="90dp"
+            android:layout_below="@+id/discount"
+            android:layout_centerHorizontal="true"
+            android:layout_marginVertical="8dp"
+            app:srcCompat="@drawable/img_food1" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_alignParentStart="true"
+            android:layout_marginHorizontal="12dp"
+            android:layout_below="@+id/image"
+            style="@style/font_15_black_medium"
+            android:text="Burger gà "/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/describe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_alignParentStart="true"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_below="@+id/title"
+            style="@style/font_10_white_medium"
+            android:textColor="#7F3B3B3B"
+            android:text="100g thịt gà + cà chua + sốt  Lettuce "/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_below="@+id/describe"
+            style="@style/font_10_white_medium"
+            android:textColor="#b9b9b9"
+            android:text="$ 10.000"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/price_discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="14dp"
+            android:layout_below="@+id/describe"
+            style="@style/font_14_primary_medium"
+            android:text="$ 10.000"/>
+
+            <ImageView
+                android:id="@+id/btn_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:textColor="#fff"
-                android:textSize="15sp"
-                android:background="#FF6347"
-                android:paddingLeft="8dp"
-                android:paddingTop="4dp"
-                android:paddingRight="8dp"
-                android:textStyle="bold"
-                android:paddingBottom="4dp"
-                android:visibility="gone"
-                android:id="@+id/tv_discount"
-                />
-
-        </RelativeLayout>
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@id/price_discount"
+                android:layout_marginEnd="14dp"
+                app:srcCompat="@drawable/ic_add_1"
+                android:contentDescription="@string/no_img" />
 
 
-    </androidx.cardview.widget.CardView>
-    <TextView
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="8dp"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_title"/>
-    <TextView
-        android:layout_marginBottom="8dp"
-        android:layout_width="match_parent"
-        android:textColor="#FF6347"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_price_root"/>
-    <TextView
-        android:layout_marginBottom="8dp"
-        android:layout_width="match_parent"
-        android:textColor="#696969"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:textStyle="bold"
-        android:textSize="12sp"
-        android:id="@+id/tv_price_discount"/>
-
-</LinearLayout>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
 
 
 

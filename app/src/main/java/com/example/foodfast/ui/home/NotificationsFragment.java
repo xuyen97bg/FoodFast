@@ -14,12 +14,13 @@ import com.example.foodfast.databinding.FragmentNotificationsBinding;
 public class NotificationsFragment extends Fragment {
     private FragmentNotificationsBinding binding;
 
-    HomeViewModel viewModel =
-            new ViewModelProvider(this).get(HomeViewModel.class);
+    HomeViewModel viewModel ;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        viewModel =
+                new ViewModelProvider(this).get(HomeViewModel.class);
         return root;
     }
 
