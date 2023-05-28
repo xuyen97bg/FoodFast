@@ -54,7 +54,7 @@ public class DashboardFragment extends Fragment {
         String description = binding.description.getText().toString();
         int category = Integer.parseInt(binding.category.getText().toString());
         Category category1 = new Category("1","Bánh mỳ","salksjg");
-        viewModel.add(getContext(),discount,description,price,title,category1,coverPhotoURL);
+        viewModel.add(getContext(),discount,description,price,title,category1,coverPhotoURL,"");
     }
 
     private void pickImage() {

@@ -44,7 +44,7 @@
             android:text="Burger gà "/>
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/describe"
+            android:id="@+id/ingredient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -62,7 +62,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginHorizontal="12dp"
             android:layout_marginTop="4dp"
-            android:layout_below="@+id/describe"
+            android:layout_below="@+id/ingredient"
             style="@style/font_10_white_medium"
             android:textColor="#b9b9b9"
             android:text="$ 10.000"/>
@@ -74,7 +74,7 @@
             android:layout_marginHorizontal="12dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="14dp"
-            android:layout_below="@+id/describe"
+            android:layout_below="@+id/ingredient"
             style="@style/font_14_primary_medium"
             android:text="$ 10.000"/>
 

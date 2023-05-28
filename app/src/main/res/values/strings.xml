@@ -8,6 +8,8 @@
     <string name="search">Tìm kiếm</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_history">Hóa đơn</string>
+    <string name="title_history">Đơn hàng</string>
     <string name="title_cart">Giỏ hàng</string>
+    <string name="describe_example">In a medium bowl, add ground chicken, breadcrumbs, mayonnaise, onions, parsley, garlic, paprika, salt and pepper. Use your hands to combine all the ingredients together until blended, but don\'t over mix.</string>
+    <string name="add_to_cart">Thêm vào giỏ hàng</string>
 </resources>

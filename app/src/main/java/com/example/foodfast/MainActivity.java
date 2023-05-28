@@ -10,7 +10,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.foodfast.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
-
+    NavController navController;
     private ActivityMainBinding binding;
 
     @Override
@@ -18,8 +18,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);
+    }
+
+    public void navigateTo(int frangmentRes){
+        navController.navigate(frangmentRes);
     }
 
 }

@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
 import com.example.foodfast.databinding.FragmentNotificationsBinding;
 
 public class NotificationsFragment extends Fragment {

@@ -39,6 +39,8 @@ public class HomeViewModel extends ViewModel {
     public MutableLiveData<List<Food>> listFoodLive = new MutableLiveData<>();
     private final List<Food> listFood = new ArrayList<>();
     public MutableLiveData<AsyncState> state = new MutableLiveData<>();
+
+    public MutableLiveData<Food> foodDetail = new MutableLiveData<>();
     public static final String FOOD_REFERENCE = "Food";
     public static final String FOOD_STORAGE_PATH = "cover_photo/";
 
@@ -46,7 +48,7 @@ public class HomeViewModel extends ViewModel {
         state.setValue(AsyncState.UNINITIALIZED);
     }
 
-    public void add(final Context context, final int discount, final String description, final int price, final String title, final Category category, final Uri coverPhotoURL) {
+    public void add(final Context context, final int discount, final String description, final int price, final String title, final Category category, final Uri coverPhotoURL, String ingredient) {
         state.setValue(AsyncState.LOADING);
         Utils.requestPermissions();
         databaseReference = FirebaseDatabase.getInstance().getReference(FOOD_REFERENCE);
@@ -70,7 +72,7 @@ public class HomeViewModel extends ViewModel {
                         public void onComplete(@NonNull Task<Uri> task) {
                             if (task.isSuccessful()) {
                                 Uri downloadURi = task.getResult();
-                                Food food = new Food(uniqueKey, title, price, discount, description, category, downloadURi.toString());
+                                Food food = new Food(uniqueKey, title, price, discount, description, category, downloadURi.toString(),ingredient);
                                 databaseReference.child(uniqueKey).setValue(food);
                             }
                             state.setValue(AsyncState.SUCCESS);
@@ -122,7 +124,7 @@ public class HomeViewModel extends ViewModel {
     }
 
     // edit book according to the id
-    public void edit(final Context context, final String id, final int discount, final String description, final int price, final String title, final Category category, final Uri coverPhotoURL) {
+    public void edit(final Context context, final String id, final int discount, final String description, final int price, final String title, final Category category, final String ingredient, final Uri coverPhotoURL) {
         state.setValue(AsyncState.LOADING);
         Utils.requestPermissions();
         databaseReference = FirebaseDatabase.getInstance().getReference(FOOD_REFERENCE).child(id);
@@ -145,7 +147,7 @@ public class HomeViewModel extends ViewModel {
                         public void onComplete(@NonNull Task<Uri> task) {
                             if (task.isSuccessful()) {
                                 Uri downloadURi = task.getResult();
-                                Food food = new Food(title, price, discount, description, category, downloadURi.toString());
+                                Food food = new Food(id,title, price, discount, description, category, downloadURi.toString(),ingredient);
                                 databaseReference.setValue(food);
                             }
                             state.setValue(AsyncState.SUCCESS);

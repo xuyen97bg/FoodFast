@@ -1,6 +1,7 @@
 package com.example.foodfast.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.foodfast.MainActivity;
 import com.example.foodfast.R;
 import com.example.foodfast.databinding.FragmentHomeBinding;
 import com.example.foodfast.model.Category;
@@ -44,7 +46,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        viewModel = new ViewModelProvider(getActivity()).get(HomeViewModel.class);
         initUiAndData();
     }
 
@@ -70,7 +72,10 @@ public class HomeFragment extends Fragment {
         binding.recyclerCategory.setAdapter(categoryAdapter);
 
         FoodAdapter adapter = new FoodAdapter(getContext(),list, food -> {
-
+            Log.d("Food HOme", food.getTitle());
+            viewModel.foodDetail.setValue(food);
+            //Chuyển fragment
+            ((MainActivity)getActivity()).navigateTo(R.id.action_navigation_home_to_foodDetailFragment);
         });
         binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         binding.recyclerView.setAdapter(adapter);

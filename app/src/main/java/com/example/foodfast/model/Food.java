@@ -9,10 +9,12 @@ public class Food {
     private Category category;
     private String urlImage;
 
+    private String ingredient;
+
     public Food() {
     }
 
-    public Food(String id, String title, int price, int discount, String description, Category category, String urlImage) {
+    public Food(String id, String title, int price, int discount, String description, Category category, String urlImage, String ingredient) {
         this.id = id;
         this.title = title;
         this.price = price;
@@ -20,15 +22,7 @@ public class Food {
         this.description = description;
         this.category = category;
         this.urlImage = urlImage;
-    }
-
-    public Food(String title, int price, int discount, String description, Category category, String urlImage) {
-        this.title = title;
-        this.price = price;
-        this.discount = discount;
-        this.description = description;
-        this.category = category;
-        this.urlImage = urlImage;
+        this.ingredient = ingredient;
     }
 
     public String getId() {
@@ -85,5 +79,13 @@ public class Food {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public String getIngredient() {
+        return ingredient;
+    }
+
+    public void setIngredient(String ingredient) {
+        this.ingredient = ingredient;
     }
 }

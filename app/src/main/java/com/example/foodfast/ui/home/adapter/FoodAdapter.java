@@ -55,12 +55,15 @@ class VH extends RecyclerView.ViewHolder {
         binding.price.setText(Html.fromHtml("<del>$ "+food.getPrice()+"</del>", Html.FROM_HTML_MODE_COMPACT));
         binding.priceDiscount.setText("$ " + food.getPrice()*(100- food.getDiscount())/100);
         binding.title.setText(food.getTitle());
-        binding.describe.setText(food.getDescription());
+        binding.ingredient.setText(food.getIngredient());
         Glide.with(context).load(food.getUrlImage()).into(binding.image);
         if (food.getDiscount() > 0)
             binding.discount.setText("Giảm " + food.getDiscount() + "%");
-        else
+        else{
             binding.discount.setBackgroundResource(R.color.white);
+            binding.price.setText("");
+        }
+
     }
 }
 
