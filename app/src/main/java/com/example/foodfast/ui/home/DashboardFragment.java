@@ -1,11 +1,14 @@
 package com.example.foodfast.ui.home;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,10 +16,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.example.foodfast.databinding.DialogDatepickerBinding;
 import com.example.foodfast.databinding.FragmentDashboardBinding;
-import com.example.foodfast.model.AsyncState;
-import com.example.foodfast.model.Category;
+import com.example.foodfast.data.model.Account;
+import com.example.foodfast.data.model.AsyncState;
+import com.example.foodfast.data.model.Category;
 import com.example.foodfast.utils.Utils;
+
+import java.util.Calendar;
 
 import gun0912.tedimagepicker.builder.TedImagePicker;
 
@@ -44,6 +51,15 @@ public class DashboardFragment extends Fragment {
                 }
             }
         });
+
+        binding.btnSubmitCate.setOnClickListener(v -> {
+            String name = binding.nameCate.getText().toString();
+            Category category = new Category(name);
+            viewModel.add(getContext(), category, coverPhotoURL);
+        });
+
+        binding.birthday.setOnClickListener(v -> createDialogDatePicker(getContext()));
+        binding.btnSubmitAcc.setOnClickListener(v -> sumitAccount());
         return root;
     }
 
@@ -64,6 +80,40 @@ public class DashboardFragment extends Fragment {
             Glide.with(this).load(uri).into(binding.urlImage);
             coverPhotoURL = uri;
         });
+    }
+
+    Calendar cal = Calendar.getInstance();
+
+    private void createDialogDatePicker(Context context) {
+        Dialog dialog = new Dialog(context);
+        DialogDatepickerBinding bindingDialog = DialogDatepickerBinding.inflate(getLayoutInflater());
+        dialog.setContentView(bindingDialog.getRoot());
+        dialog.getWindow().setLayout(
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT);
+        bindingDialog.datePicker.updateDate(2000, 1, 1);
+        bindingDialog.btnAccept.setOnClickListener(v -> {
+
+            cal.set(bindingDialog.datePicker.getYear(),
+                    bindingDialog.datePicker.getMonth(),
+                    bindingDialog.datePicker.getDayOfMonth());
+            dialog.dismiss();
+        });
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+    }
+
+    private void sumitAccount() {
+        String username = binding.username.getText().toString();
+        String password = binding.password.getText().toString();
+        String firstname = binding.fistname.getText().toString();
+        String lastname = binding.lastname.getText().toString();
+        long birthday = cal.getTimeInMillis();
+        String phone = binding.phoneNumber.getText().toString();
+        String aadress = binding.address.getText().toString();
+        int role = binding.male.isChecked() ? 1 : 0;
+        Account account = new Account(username,password,firstname,lastname,birthday,phone,aadress,role);
+        viewModel.add(getContext(),account,coverPhotoURL);
     }
 
     @Override

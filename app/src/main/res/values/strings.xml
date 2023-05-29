@@ -12,4 +12,24 @@
     <string name="title_cart">Giỏ hàng</string>
     <string name="describe_example">In a medium bowl, add ground chicken, breadcrumbs, mayonnaise, onions, parsley, garlic, paprika, salt and pepper. Use your hands to combine all the ingredients together until blended, but don\'t over mix.</string>
     <string name="add_to_cart">Thêm vào giỏ hàng</string>
+    <string name="title">title</string>
+    <string name="price">price</string>
+    <string name="discount">discount</string>
+    <string name="description">description</string>
+    <string name="category">category</string>
+    <string name="name_category">name category</string>
+    <string name="account">Account</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="lastname">lastname</string>
+    <string name="phone">Phone</string>
+    <string name="address">address</string>
+    <string name="male">Nam</string>
+    <string name="female">Nữ</string>
+    <string name="submit">Submit</string>
+    <string name="submit_category">Submit category</string>
+    <string name="submit_account">Submit account</string>
+    <string name="fistname">fistname</string>
+    <string name="confirm">Xác nhận</string>
+    <string name="discount_format">Giảm %d %</string>
 </resources>

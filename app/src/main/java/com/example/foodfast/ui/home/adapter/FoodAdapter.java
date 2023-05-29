@@ -11,14 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.foodfast.R;
 import com.example.foodfast.databinding.ItemFoodBinding;
-import com.example.foodfast.model.Food;
+import com.example.foodfast.data.model.Food;
 
 import java.util.List;
 
 public class FoodAdapter extends RecyclerView.Adapter<VH>{
     Context context;
-    private List<Food> listFood;
-    private IclickDetail clickItem;
+    private final List<Food> listFood;
+    private final IclickDetail clickItem;
     public FoodAdapter(Context context, List<Food> listFood, IclickDetail clickItem) {
         this.context = context;
         this.clickItem = clickItem;
@@ -44,7 +44,7 @@ public class FoodAdapter extends RecyclerView.Adapter<VH>{
 }
 
 class VH extends RecyclerView.ViewHolder {
-    private ItemFoodBinding binding;
+    private final ItemFoodBinding binding;
 
     public VH(@NonNull ItemFoodBinding binding) {
         super(binding.getRoot());

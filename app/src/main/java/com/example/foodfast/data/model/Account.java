@@ -1,4 +1,4 @@
-package com.example.foodfast.model;
+package com.example.foodfast.data.model;
 
 public class Account {
     private String id;
@@ -6,20 +6,35 @@ public class Account {
     private String password;
     private String fistName;
     private String lastName;
-    private long birtday;
+    private long birthday;
     private String phoneNumber;
     private String address;
     private int role; //0-Nữ 1-Nam
 
+    private String imageUrl;
+
     public Account() {
     }
 
-    public Account(String username, String password, String fistName, String lastName, long birtday, String phoneNumber, String address, int role) {
+    public Account(String id, String username, String password, String fistName, String lastName, long birthday, String phoneNumber, String address, int role, String imageUrl) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.fistName = fistName;
         this.lastName = lastName;
-        this.birtday = birtday;
+        this.birthday = birthday;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.role = role;
+        this.imageUrl = imageUrl;
+    }
+
+    public Account(String username, String password, String fistName, String lastName, long birthday, String phoneNumber, String address, int role) {
+        this.username = username;
+        this.password = password;
+        this.fistName = fistName;
+        this.lastName = lastName;
+        this.birthday = birthday;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.role = role;
@@ -65,12 +80,12 @@ public class Account {
         this.lastName = lastName;
     }
 
-    public long getBirtday() {
-        return birtday;
+    public long getBirthday() {
+        return birthday;
     }
 
-    public void setBirtday(long birtday) {
-        this.birtday = birtday;
+    public void setBirthday(long birthday) {
+        this.birthday = birthday;
     }
 
     public String getPhoneNumber() {
@@ -95,5 +110,13 @@ public class Account {
 
     public void setRole(int role) {
         this.role = role;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

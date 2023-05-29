@@ -11,14 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.foodfast.R;
 import com.example.foodfast.databinding.ItemCategoryBinding;
-import com.example.foodfast.model.Category;
+import com.example.foodfast.data.model.Category;
 
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<VH2> {
-    private Context context;
-    private List<Category> list;
-    private IclickCategory iclick;
+    private final Context context;
+    private final List<Category> list;
+    private final IclickCategory iclick;
     public int posSelected = 0;
 
     public CategoryAdapter(Context context, List<Category> list, IclickCategory iclick) {
@@ -52,7 +52,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<VH2> {
 }
 
 class VH2 extends RecyclerView.ViewHolder {
-    private ItemCategoryBinding binding;
+    private final ItemCategoryBinding binding;
 
     public VH2(@NonNull ItemCategoryBinding binding) {
         super(binding.getRoot());

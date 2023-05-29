@@ -1,4 +1,4 @@
-package com.example.foodfast.model;
+package com.example.foodfast.data.model;
 
 public class Notify {
     private String id;

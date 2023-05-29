@@ -1,22 +1,18 @@
-package com.example.foodfast.model;
+package com.example.foodfast.data.model;
 
 public class CartItem {
     private String id;
     private String idFood;
     private int amountBuy;
     private int price;
-    private long createAt;
-    private long updateAt;
 
     public CartItem() {
     }
 
-    public CartItem( String idFood, int amountBuy, int price, long createAt, long updateAt) {
+    public CartItem( String idFood, int amountBuy, int price) {
         this.idFood = idFood;
         this.amountBuy = amountBuy;
         this.price = price;
-        this.createAt = createAt;
-        this.updateAt = updateAt;
     }
 
     public String getId() {
@@ -51,19 +47,4 @@ public class CartItem {
         this.price = price;
     }
 
-    public long getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(long createAt) {
-        this.createAt = createAt;
-    }
-
-    public long getUpdateAt() {
-        return updateAt;
-    }
-
-    public void setUpdateAt(long updateAt) {
-        this.updateAt = updateAt;
-    }
 }
