@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="104dp"
+    android:layout_marginHorizontal="14dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="5dp">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="62dp"
+            android:layout_height="62dp"
+            android:layout_marginStart="12dp"
+            app:cardBackgroundColor="@color/pink"
+            app:cardCornerRadius="7dp"
+            app:cardElevation="0dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_food1" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="14dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/name"
+                style="@style/font_15_black_medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chicken Burger" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/font_12_grey_medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#773B3B3B"
+                android:text="@string/app_name" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/price"
+                style="@style/font_19_red_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="$ 20.000" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/btn_minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_minus" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/amount"
+            android:layout_width="40dp"
+            android:layout_height="26dp"
+            android:gravity="center"
+            style="@style/font_16_black_medium"
+            android:text="1" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/btn_plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_plus" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.cardview.widget.CardView>

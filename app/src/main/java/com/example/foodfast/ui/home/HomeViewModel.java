@@ -2,7 +2,6 @@ package com.example.foodfast.ui.home;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -22,7 +21,6 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +28,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
@@ -42,16 +39,12 @@ public class HomeViewModel extends ViewModel {
     private StorageReference storageReference;
     public MutableLiveData<List<Food>> listFoodLive = new MutableLiveData<>();
     public MutableLiveData<AsyncState> state = new MutableLiveData<>();
-
     public MutableLiveData<Food> foodDetail = new MutableLiveData<>();
     public static final String FOOD_REFERENCE = "Food";
     public static final String ACCOUNT_REFERENCE = "Account";
     public static final String CATEGORY_REFERENCE = "Category";
     public static final String CART_REFERENCE = "Cart";
-
-    public static final String CART_ITEM_REFERENCE = "Cart";
     public static final String FOOD_STORAGE_PATH = "cover_photo/";
-
     public HomeViewModel() {
         state.setValue(AsyncState.UNINITIALIZED);
     }
@@ -75,7 +68,6 @@ public class HomeViewModel extends ViewModel {
                     state.setValue(AsyncState.FAIL);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
@@ -91,25 +83,18 @@ public class HomeViewModel extends ViewModel {
                 public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                     final String uniqueKey = databaseReference.push().getKey();
                     storageReference = FirebaseStorage.getInstance().getReference().child(uniqueKey).child(FOOD_STORAGE_PATH + coverPhotoURL.getLastPathSegment());
-                    StorageTask storageTask = storageReference.putFile(coverPhotoURL);
-                    Task<Uri> uriTask = storageTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                        @Override
-                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> taskSnapshot) throws Exception {
-                            if (!taskSnapshot.isSuccessful()) {
-                                throw taskSnapshot.getException();
-                            }
-                            return storageReference.getDownloadUrl();
+                    storageReference.putFile(coverPhotoURL).continueWithTask(taskSnapshot -> {
+                        if (!taskSnapshot.isSuccessful()) {
+                            throw taskSnapshot.getException();
                         }
-                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            if (task.isSuccessful()) {
-                                Uri downloadURi = task.getResult();
-                                Food food = new Food(uniqueKey, title, price, discount, description, category, downloadURi.toString(),ingredient);
-                                databaseReference.child(uniqueKey).setValue(food);
-                            }
-                            state.setValue(AsyncState.SUCCESS);
+                        return storageReference.getDownloadUrl();
+                    }).addOnCompleteListener((OnCompleteListener<Uri>) task -> {
+                        if (task.isSuccessful()) {
+                            Uri downloadURi = task.getResult();
+                            Food food = new Food(uniqueKey, title, price, discount, description, category, downloadURi.toString(), ingredient);
+                            databaseReference.child(uniqueKey).setValue(food);
                         }
+                        state.setValue(AsyncState.SUCCESS);
                     });
                 }
 
@@ -131,29 +116,20 @@ public class HomeViewModel extends ViewModel {
                 @Override
                 public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                     storageReference = FirebaseStorage.getInstance().getReference().child(id).child(FOOD_STORAGE_PATH + coverPhotoURL.getLastPathSegment());
-                    StorageTask storageTask = storageReference.putFile(coverPhotoURL);
-                    Task<Uri> uriTask = storageTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                        @Override
-                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> taskSnapshot) throws Exception {
-                            if (!taskSnapshot.isSuccessful()) {
-                                throw taskSnapshot.getException();
-                            }
-                            return storageReference.getDownloadUrl();
+                    storageReference.putFile(coverPhotoURL).continueWithTask(taskSnapshot -> {
+                        if (!taskSnapshot.isSuccessful()) {
+                            throw taskSnapshot.getException();
                         }
-                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            if (task.isSuccessful()) {
-                                Uri downloadURi = task.getResult();
-                                Food food = new Food(id,title, price, discount, description, category, downloadURi.toString(),ingredient);
-                                databaseReference.setValue(food);
-                            }
-                            state.setValue(AsyncState.SUCCESS);
-                            all();
+                        return storageReference.getDownloadUrl();
+                    }).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Uri downloadURi = task.getResult();
+                            Food food = new Food(id, title, price, discount, description, category, downloadURi.toString(), ingredient);
+                            databaseReference.setValue(food);
                         }
+                        state.setValue(AsyncState.SUCCESS);
                     });
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
@@ -167,28 +143,19 @@ public class HomeViewModel extends ViewModel {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Delete");
         builder.setMessage("Bạn có chắc chắn muốn xóa món ăn?");
-        builder.setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //state.setValue(AsyncState.LOADING);
-                databaseReference = FirebaseDatabase.getInstance().getReference(FOOD_REFERENCE).child(food.getId());
-                storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(food.getUrlImage());
-                storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        databaseReference.removeValue();
-                        state.setValue(AsyncState.SUCCESS);
-                        all();
-                        dialog.dismiss();
-                    }
-                });
-            }
-        }).setNegativeButton("Hủy bỏ", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        }).create().show();
+        builder.setPositiveButton("Xác nhận", (dialog, which) -> {
+            //state.setValue(AsyncState.LOADING);
+            databaseReference = FirebaseDatabase.getInstance().getReference(FOOD_REFERENCE).child(food.getId());
+            storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(food.getUrlImage());
+            storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    databaseReference.removeValue();
+                    state.setValue(AsyncState.SUCCESS);
+                    dialog.dismiss();
+                }
+            });
+        }).setNegativeButton("Hủy bỏ", (dialog, which) -> dialog.dismiss()).create().show();
         return true;
     }
     //Account add
@@ -202,29 +169,21 @@ public class HomeViewModel extends ViewModel {
                 public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                     final String uniqueKey = databaseReference.push().getKey();
                     storageReference = FirebaseStorage.getInstance().getReference().child(uniqueKey).child(FOOD_STORAGE_PATH + uriImage.getLastPathSegment());
-                    StorageTask storageTask = storageReference.putFile(uriImage);
-                    Task<Uri> uriTask = storageTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                        @Override
-                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> taskSnapshot) throws Exception {
-                            if (!taskSnapshot.isSuccessful()) {
-                                throw taskSnapshot.getException();
-                            }
-                            return storageReference.getDownloadUrl();
+                    storageReference.putFile(uriImage).continueWithTask(taskSnapshot -> {
+                        if (!taskSnapshot.isSuccessful()) {
+                            throw taskSnapshot.getException();
                         }
-                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            if (task.isSuccessful()) {
-                                Uri downloadURi = task.getResult();
-                                account.setId(uniqueKey);
-                                account.setImageUrl(downloadURi.toString());
-                                databaseReference.child(uniqueKey).setValue(account);
-                            }
-                            state.setValue(AsyncState.SUCCESS);
+                        return storageReference.getDownloadUrl();
+                    }).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Uri downloadURi = task.getResult();
+                            account.setId(uniqueKey);
+                            account.setImageUrl(downloadURi.toString());
+                            databaseReference.child(uniqueKey).setValue(account);
                         }
+                        state.setValue(AsyncState.SUCCESS);
                     });
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
@@ -254,7 +213,6 @@ public class HomeViewModel extends ViewModel {
                     state.setValue(AsyncState.FAIL);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
@@ -270,28 +228,20 @@ public class HomeViewModel extends ViewModel {
                 @Override
                 public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                     storageReference = FirebaseStorage.getInstance().getReference().child(account.getId()).child(FOOD_STORAGE_PATH + coverPhotoURL.getLastPathSegment());
-                    StorageTask storageTask = storageReference.putFile(coverPhotoURL);
-                    Task<Uri> uriTask = storageTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                        @Override
-                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> taskSnapshot) throws Exception {
-                            if (!taskSnapshot.isSuccessful()) {
-                                throw taskSnapshot.getException();
-                            }
-                            return storageReference.getDownloadUrl();
+                    storageReference.putFile(coverPhotoURL).continueWithTask((Continuation<UploadTask.TaskSnapshot, Task<Uri>>) taskSnapshot -> {
+                        if (!taskSnapshot.isSuccessful()) {
+                            throw taskSnapshot.getException();
                         }
-                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            if (task.isSuccessful()) {
-                                Uri downloadURi = task.getResult();
-                                account.setImageUrl(downloadURi.toString());
-                                databaseReference.setValue(account);
-                            }
-                            state.setValue(AsyncState.SUCCESS);
+                        return storageReference.getDownloadUrl();
+                    }).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Uri downloadURi = task.getResult();
+                            account.setImageUrl(downloadURi.toString());
+                            databaseReference.setValue(account);
                         }
+                        state.setValue(AsyncState.SUCCESS);
                     });
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
@@ -305,28 +255,17 @@ public class HomeViewModel extends ViewModel {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Delete");
         builder.setMessage("Bạn có chắc chắn muốn xóa món ăn?");
-        builder.setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //state.setValue(AsyncState.LOADING);
-                databaseReference = FirebaseDatabase.getInstance().getReference(ACCOUNT_REFERENCE).child(account.getId());
-                storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(account.getImageUrl());
-                storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        databaseReference.removeValue();
-                        state.setValue(AsyncState.SUCCESS);
-                        all();
-                        dialog.dismiss();
-                    }
-                });
-            }
-        }).setNegativeButton("Hủy bỏ", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setPositiveButton("Xác nhận", (dialog, which) -> {
+            //state.setValue(AsyncState.LOADING);
+            databaseReference = FirebaseDatabase.getInstance().getReference(ACCOUNT_REFERENCE).child(account.getId());
+            storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(account.getImageUrl());
+            storageReference.delete().addOnSuccessListener(aVoid -> {
+                databaseReference.removeValue();
+                state.setValue(AsyncState.SUCCESS);
+                all();
                 dialog.dismiss();
-            }
-        }).create().show();
+            });
+        }).setNegativeButton("Hủy bỏ", (dialog, which) -> dialog.dismiss()).create().show();
         return true;
     }
     //Category
@@ -341,29 +280,21 @@ public class HomeViewModel extends ViewModel {
                 public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                     final String uniqueKey = databaseReference.push().getKey();
                     storageReference = FirebaseStorage.getInstance().getReference().child(uniqueKey).child(FOOD_STORAGE_PATH + uriImage.getLastPathSegment());
-                    StorageTask storageTask = storageReference.putFile(uriImage);
-                    Task<Uri> uriTask = storageTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                        @Override
-                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> taskSnapshot) throws Exception {
-                            if (!taskSnapshot.isSuccessful()) {
-                                throw taskSnapshot.getException();
-                            }
-                            return storageReference.getDownloadUrl();
+                    storageReference.putFile(uriImage).continueWithTask(taskSnapshot -> {
+                        if (!taskSnapshot.isSuccessful()) {
+                            throw taskSnapshot.getException();
                         }
-                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            if (task.isSuccessful()) {
-                                Uri downloadURi = task.getResult();
-                                category.setId(uniqueKey);
-                                category.setImageUrl(downloadURi.toString());
-                                databaseReference.child(uniqueKey).setValue(category);
-                            }
-                            state.setValue(AsyncState.SUCCESS);
+                        return storageReference.getDownloadUrl();
+                    }).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Uri downloadURi = task.getResult();
+                            category.setId(uniqueKey);
+                            category.setImageUrl(downloadURi.toString());
+                            databaseReference.child(uniqueKey).setValue(category);
                         }
+                        state.setValue(AsyncState.SUCCESS);
                     });
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
@@ -391,7 +322,6 @@ public class HomeViewModel extends ViewModel {
                     state.setValue(AsyncState.FAIL);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
@@ -407,15 +337,11 @@ public class HomeViewModel extends ViewModel {
                 @Override
                 public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                     storageReference = FirebaseStorage.getInstance().getReference().child(category.getId()).child(FOOD_STORAGE_PATH + coverPhotoURL.getLastPathSegment());
-                    StorageTask storageTask = storageReference.putFile(coverPhotoURL);
-                    Task<Uri> uriTask = storageTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                        @Override
-                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> taskSnapshot) throws Exception {
-                            if (!taskSnapshot.isSuccessful()) {
-                                throw taskSnapshot.getException();
-                            }
-                            return storageReference.getDownloadUrl();
+                    storageReference.putFile(coverPhotoURL).continueWithTask(taskSnapshot -> {
+                        if (!taskSnapshot.isSuccessful()) {
+                            throw taskSnapshot.getException();
                         }
+                        return storageReference.getDownloadUrl();
                     }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                         @Override
                         public void onComplete(@NonNull Task<Uri> task) {
@@ -428,7 +354,6 @@ public class HomeViewModel extends ViewModel {
                         }
                     });
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
@@ -442,59 +367,22 @@ public class HomeViewModel extends ViewModel {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Delete");
         builder.setMessage("Bạn có chắc chắn muốn xóa món ăn?");
-        builder.setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //state.setValue(AsyncState.LOADING);
-                databaseReference = FirebaseDatabase.getInstance().getReference(CATEGORY_REFERENCE).child(category.getId());
-                storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(category.getImageUrl());
-                storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        databaseReference.removeValue();
-                        state.setValue(AsyncState.SUCCESS);
-                        all();
-                        dialog.dismiss();
-                    }
-                });
-            }
-        }).setNegativeButton("Hủy bỏ", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setPositiveButton("Xác nhận", (dialog, which) -> {
+            //state.setValue(AsyncState.LOADING);
+            databaseReference = FirebaseDatabase.getInstance().getReference(CATEGORY_REFERENCE).child(category.getId());
+            storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(category.getImageUrl());
+            storageReference.delete().addOnSuccessListener(aVoid -> {
+                databaseReference.removeValue();
+                state.setValue(AsyncState.SUCCESS);
                 dialog.dismiss();
-            }
-        }).create().show();
+            });
+        }).setNegativeButton("Hủy bỏ", (dialog, which) -> dialog.dismiss()).create().show();
         return true;
     }
-
     //CART table
-    public void createCart(final Context context, String id) {
-        state.setValue(AsyncState.LOADING);
-        databaseReference = FirebaseDatabase.getInstance().getReference(CART_REFERENCE).child(id);
-        if (isNetworkAvailable(context)) {
-            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(anyFoodExists(snapshot)){
-                        if(snapshot.getChildrenCount() == 0){
-                            long time = Calendar.getInstance().getTimeInMillis();
-                            Cart cart = new Cart(id,time,time);
-                            databaseReference.setValue(cart);
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        }else {
-            Toast.makeText(context, "Lỗi kết nối mạng", Toast.LENGTH_SHORT).show();
-        }
-    }
     public MutableLiveData<Cart> cart = new MutableLiveData<>();
     public void getCart(Context context, String id){
+        state.setValue(AsyncState.LOADING);
         createCart(context, id);
         databaseReference = FirebaseDatabase.getInstance().getReference(CART_REFERENCE);
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -514,16 +402,36 @@ public class HomeViewModel extends ViewModel {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
-    public void edit(Cart cart){
+    public void createCart(final Context context, String id) {
+        databaseReference = FirebaseDatabase.getInstance().getReference(CART_REFERENCE).child(id);
+        if (isNetworkAvailable(context)) {
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(anyFoodExists(snapshot)){
+                        if(snapshot.getChildrenCount() == 0){
+                            long time = Calendar.getInstance().getTimeInMillis();
+                            Cart cart = new Cart(id,time,time);
+                            databaseReference.setValue(cart);
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }else {
+            Toast.makeText(context, "Lỗi kết nối mạng", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void edit(Cart cart) {
         databaseReference = FirebaseDatabase.getInstance().getReference(CART_REFERENCE).child(cart.getId());
         databaseReference.setValue(cart);
     }
-
-
     public boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();

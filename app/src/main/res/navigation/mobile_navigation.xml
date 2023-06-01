@@ -20,17 +20,17 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.foodfast.ui.home.NotificationsFragment"
+        android:name="com.example.foodfast.ui.notify.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/navigation_cart"
-        android:name="com.example.foodfast.ui.home.CartFragment"
+        android:name="com.example.foodfast.ui.cart.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" />
     <fragment
         android:id="@+id/navigation_history"
-        android:name="com.example.foodfast.ui.home.HistoryFragment"
+        android:name="com.example.foodfast.ui.history.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" />
     <fragment

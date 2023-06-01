@@ -16,6 +16,7 @@ import com.example.foodfast.data.model.CartItem;
 import com.example.foodfast.data.model.Food;
 import com.example.foodfast.data.network.SessionManager;
 import com.example.foodfast.databinding.FragmentFoodDetailBinding;
+import com.example.foodfast.utils.Utils;
 
 import java.util.List;
 import java.util.Objects;
@@ -23,8 +24,6 @@ import java.util.Objects;
 public class FoodDetailFragment extends Fragment {
     private FragmentFoodDetailBinding binding;
     private int amount = 1;
-    private Food food;
-
     private Cart cart;
 
     private CartItem cartItem;
@@ -60,10 +59,10 @@ public class FoodDetailFragment extends Fragment {
 
         viewModel.foodDetail.observe(getViewLifecycleOwner(), food -> {
             if (food.getTitle() != null) {
-                this.food = food;
                 binding.title.setText(food.getTitle());
                 binding.describe.setText(food.getDescription());
-                binding.price.setText(String.format("$ %s", food.getPrice() * (100 - food.getDiscount()) / 100));
+                int price = food.getPrice() * (100 - food.getDiscount()) / 100;
+                binding.price.setText(String.format("$ %s", Utils.convertMoney(price)));
                 Glide.with(requireContext()).load(food.getUrlImage()).into(binding.image);
                 //Create cart_item
                 cartItem = new CartItem(food.getId(),0, food.getPrice()*(100- food.getDiscount())/100 );
@@ -77,9 +76,7 @@ public class FoodDetailFragment extends Fragment {
                 amount--;
             }
             binding.amount.setText(amount + "");
-
         });
-
         binding.btnPlus.setOnClickListener(v -> binding.amount.setText(++amount + ""));
         binding.btnAdd.setOnClickListener(v -> {
             int index = asyncCartItem();
@@ -93,7 +90,6 @@ public class FoodDetailFragment extends Fragment {
             getActivity().onBackPressed();
         });
     }
-
     private int asyncCartItem() {
         for (int i = 0; i < cart.getCartItems().size(); i++) {
             if(cart.getCartItems().get(i).getIdFood().equals(cartItem.getIdFood())){
@@ -102,9 +98,7 @@ public class FoodDetailFragment extends Fragment {
             }
         }
         return -1;
-
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

@@ -1,14 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.CartFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_cart_detail_fragment"
+    tools:context=".ui.cart.CartFragment"
+    android:fillViewport="true">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/font_25_black_bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="100dp"
+            android:text="@string/cart_detail" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/empty"
+            style="@style/font_14_gray_regular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:gravity="center"
+            android:text="@string/cart_empty" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:visibility="gone"
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:gravity="bottom">
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="7dp"
+                app:cardElevation="0dp">
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/img_bg_bill_cart_detail">
+
+                    <TableRow
+                        android:layout_marginTop="20dp"
+                        android:paddingHorizontal="20dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/font_14_white_medium"
+                            android:layout_weight="1"
+                            android:text="Tổng tiền món ăn:" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/sub_total"
+                            style="@style/font_14_white_medium"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="end"
+                            android:text="0 $" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_marginTop="5dp"
+                        android:paddingHorizontal="20dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/font_14_white_medium"
+                            android:layout_weight="1"
+                            android:text="Phí giao hàng:" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/fee_ship"
+                            style="@style/font_14_white_medium"
+                            android:layout_gravity="end"
+                            android:text="0 $" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_marginTop="5dp"
+                        android:paddingHorizontal="20dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/font_14_white_medium"
+                            android:layout_weight="1"
+                            android:text="@string/code_discount" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/discount"
+                            style="@style/font_14_white_medium"
+                            android:text="0 $"
+                            android:layout_gravity="end"/>
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_marginVertical="15dp"
+                        android:paddingHorizontal="20dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/font_18_white_bold"
+                            android:layout_weight="1"
+                            android:text="@string/total" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/total"
+                            style="@style/font_18_white_bold"
+                            android:layout_gravity="end"
+                            android:text="0 $" />
+                    </TableRow>
+
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/font_18_red_bold"
+                        android:layout_marginHorizontal="10dp"
+                        android:background="@drawable/bg_btn_second"
+                        android:text="@string/place_my_order"
+                        app:backgroundTint="@null" />
+                </TableLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.core.widget.NestedScrollView>

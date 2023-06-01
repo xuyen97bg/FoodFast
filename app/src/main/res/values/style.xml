@@ -6,6 +6,12 @@
         <item name="android:textColor">@color/grey</item>
     </style>
 
+    <style name="font_14_gray_regular">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/svn_poppins_regular</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
     <style name="MitaInputLayoutLogin" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="boxCornerRadiusTopStart">7dp</item>
         <item name="boxCornerRadiusTopEnd">7dp</item>
@@ -33,6 +39,12 @@
         <item name="android:fontFamily">@font/svn_poppins_medium</item>
     </style>
 
+    <style name="font_18_white_bold">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/svn_poppins_semi_bold</item>
+    </style>
+
     <style name="font_27_black_medium">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">27sp</item>
@@ -46,6 +58,24 @@
         <item name="android:fontFamily">@font/svn_poppins_medium</item>
     </style>
 
+    <style name="font_19_red_bold">
+        <item name="android:textColor">#D61355</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:fontFamily">@font/svn_poppins_bold</item>
+    </style>
+
+    <style name="font_14_red_bold">
+        <item name="android:textColor">#D61355</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/svn_poppins_semi_bold</item>
+    </style>
+
+    <style name="font_18_red_bold">
+        <item name="android:textColor">#EE1355</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/svn_poppins_semi_bold</item>
+    </style>
+
     <style name="font_10_white_medium">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">10sp</item>
@@ -56,11 +86,43 @@
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">@font/svn_poppins_medium</item>
     </style>
+
+    <style name="font_14_black_medium">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/svn_poppins_medium</item>
+    </style>
+
+    <style name="font_14_black_regular">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/svn_poppins_regular</item>
+    </style>
+
+    <style name="font_14_white_medium">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/svn_poppins_medium</item>
+    </style>
+
+    <style name="font_14_white_bold">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/svn_poppins_semi_bold</item>
+    </style>
+
     <style name="font_14_primary_bold">
-    <item name="android:textColor">@color/primary</item>
-    <item name="android:textSize">14sp</item>
-    <item name="android:fontFamily">@font/svn_poppins_bold</item>
-</style>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/svn_poppins_bold</item>
+    </style>
+
+    <style name="font_25_black_bold">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:fontFamily">@font/svn_poppins_semi_bold</item>
+    </style>
+
     <style name="font_16_black_medium">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">16sp</item>

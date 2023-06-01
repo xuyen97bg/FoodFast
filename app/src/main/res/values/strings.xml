@@ -32,4 +32,9 @@
     <string name="fistname">fistname</string>
     <string name="confirm">Xác nhận</string>
     <string name="discount_format">Giảm %d %</string>
+    <string name="cart_detail">Giỏ hàng của bạn</string>
+    <string name="code_discount">Mã giảm giá:</string>
+    <string name="total">Tổng tiền:</string>
+    <string name="place_my_order">Đặt hàng ngay</string>
+    <string name="cart_empty"><![CDATA[< giỏ hàng trống >]]></string>
 </resources>

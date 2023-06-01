@@ -1,4 +1,4 @@
-package com.example.foodfast.ui.home;
+package com.example.foodfast.ui.notify;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.example.foodfast.databinding.FragmentNotificationsBinding;
+import com.example.foodfast.ui.home.HomeViewModel;
 
 public class NotificationsFragment extends Fragment {
     private FragmentNotificationsBinding binding;

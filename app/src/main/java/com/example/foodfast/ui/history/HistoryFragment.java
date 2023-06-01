@@ -1,4 +1,4 @@
-package com.example.foodfast.ui.home;
+package com.example.foodfast.ui.history;
 
 import android.os.Bundle;
 

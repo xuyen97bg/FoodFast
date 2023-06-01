@@ -1,7 +1,6 @@
 package com.example.foodfast.data.model;
 
 public class CartItem {
-    private String id;
     private String idFood;
     private int amountBuy;
     private int price;
@@ -14,15 +13,6 @@ public class CartItem {
         this.amountBuy = amountBuy;
         this.price = price;
     }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getIdFood() {
         return idFood;
     }
@@ -45,6 +35,14 @@ public class CartItem {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public void minus(){
+        amountBuy--;
+    }
+
+    public void plus(){
+        amountBuy++;
     }
 
 }
