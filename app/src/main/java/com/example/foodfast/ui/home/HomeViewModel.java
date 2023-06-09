@@ -40,15 +40,18 @@ public class HomeViewModel extends ViewModel {
     public MutableLiveData<List<Food>> listFoodLive = new MutableLiveData<>();
     public MutableLiveData<AsyncState> state = new MutableLiveData<>();
     public MutableLiveData<Food> foodDetail = new MutableLiveData<>();
+    public MutableLiveData<Account> account = new MutableLiveData<>();
     public static final String FOOD_REFERENCE = "Food";
     public static final String ACCOUNT_REFERENCE = "Account";
     public static final String CATEGORY_REFERENCE = "Category";
     public static final String CART_REFERENCE = "Cart";
+    public static final String HISTORY_REFERENCE = "History";
     public static final String FOOD_STORAGE_PATH = "cover_photo/";
     public HomeViewModel() {
         state.setValue(AsyncState.UNINITIALIZED);
     }
-    // get all the books from the database
+
+    // Food
     public void all() {
         state.setValue(AsyncState.LOADING);
         List<Food> listFood = new ArrayList<>();
@@ -88,7 +91,7 @@ public class HomeViewModel extends ViewModel {
                             throw taskSnapshot.getException();
                         }
                         return storageReference.getDownloadUrl();
-                    }).addOnCompleteListener((OnCompleteListener<Uri>) task -> {
+                    }).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             Uri downloadURi = task.getResult();
                             Food food = new Food(uniqueKey, title, price, discount, description, category, downloadURi.toString(), ingredient);
@@ -184,15 +187,38 @@ public class HomeViewModel extends ViewModel {
                         state.setValue(AsyncState.SUCCESS);
                     });
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
             });
-        }else {
+        } else {
             Toast.makeText(context, "Lỗi kết nối mạng", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void getAcc(final String id) {
+        state.setValue(AsyncState.LOADING);
+        FirebaseDatabase.getInstance().getReference(ACCOUNT_REFERENCE).child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (anyFoodExists(snapshot)) {
+                    state.setValue(AsyncState.SUCCESS);
+                    account.setValue(snapshot.getValue(Account.class));
+                } else {
+                    state.setValue(AsyncState.FAIL);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     public MutableLiveData<List<Account>> listAccountLive = new MutableLiveData<>();
+
     //all account
     public void allAccount() {
         state.setValue(AsyncState.LOADING);
@@ -384,8 +410,8 @@ public class HomeViewModel extends ViewModel {
     public void getCart(Context context, String id){
         state.setValue(AsyncState.LOADING);
         createCart(context, id);
-        databaseReference = FirebaseDatabase.getInstance().getReference(CART_REFERENCE);
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference(CART_REFERENCE)
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (anyFoodExists(dataSnapshot)) {
@@ -399,24 +425,21 @@ public class HomeViewModel extends ViewModel {
                     state.setValue(AsyncState.FAIL);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
     }
     public void createCart(final Context context, String id) {
-        databaseReference = FirebaseDatabase.getInstance().getReference(CART_REFERENCE).child(id);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(CART_REFERENCE).child(id);
         if (isNetworkAvailable(context)) {
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(anyFoodExists(snapshot)){
-                        if(snapshot.getChildrenCount() == 0){
-                            long time = Calendar.getInstance().getTimeInMillis();
-                            Cart cart = new Cart(id,time,time);
-                            databaseReference.setValue(cart);
-                        }
+                    if (snapshot.getChildrenCount() == 0) {
+                        long time = Calendar.getInstance().getTimeInMillis();
+                        Cart cart = new Cart(id, time, time);
+                        databaseReference.setValue(cart);
                     }
                 }
                 @Override
@@ -424,20 +447,28 @@ public class HomeViewModel extends ViewModel {
 
                 }
             });
-        }else {
+        } else {
             Toast.makeText(context, "Lỗi kết nối mạng", Toast.LENGTH_SHORT).show();
         }
     }
     public void edit(Cart cart) {
+        cart.setUpdateAt(Calendar.getInstance().getTimeInMillis());
         databaseReference = FirebaseDatabase.getInstance().getReference(CART_REFERENCE).child(cart.getId());
         databaseReference.setValue(cart);
+    }
+    //HISTORY
+    public void createOrder(Context context,Cart cart) {
+        FirebaseDatabase.getInstance().getReference(CART_REFERENCE).child(cart.getId()).removeValue();
+        databaseReference = FirebaseDatabase.getInstance().getReference(HISTORY_REFERENCE).child(cart.getId());
+        String uniqueKey = databaseReference.push().getKey();
+        databaseReference.child(uniqueKey).setValue(cart);
+        getCart(context, cart.getId());
     }
     public boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnected();
     }
-
     // check if there is any food in the database
     public boolean anyFoodExists(DataSnapshot dataSnapshot) {
         return dataSnapshot.getChildrenCount() > 0;

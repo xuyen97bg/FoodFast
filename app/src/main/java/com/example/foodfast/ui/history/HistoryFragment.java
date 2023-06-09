@@ -1,66 +1,69 @@
 package com.example.foodfast.ui.history;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.foodfast.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HistoryFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.foodfast.data.model.AsyncState;
+import com.example.foodfast.data.model.Cart;
+import com.example.foodfast.data.model.Food;
+import com.example.foodfast.databinding.FragmentHistoryBinding;
+import com.example.foodfast.ui.history.adapter.HistoryAdapter;
+import com.example.foodfast.ui.home.HomeViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class HistoryFragment extends Fragment {
+    private List<Food> listFood = new ArrayList<>();
+    private List<Cart> listCart = new ArrayList<>();
+    HistoryAdapter adapter;
+    private FragmentHistoryBinding binding;
+    HomeViewModel homeViewModel;
+    HistoryViewModel viewModel;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public HistoryFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HistoryFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HistoryFragment newInstance(String param1, String param2) {
-        HistoryFragment fragment = new HistoryFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentHistoryBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        viewModel = new ViewModelProvider(getActivity()).get(HistoryViewModel.class);
+        homeViewModel = new ViewModelProvider(getActivity()).get(HomeViewModel.class);
+        initUiAndData();
+    }
+
+    private void initUiAndData() {
+        adapter = new HistoryAdapter(getContext(), listCart, listFood);
+        binding.recyclerView.setAdapter(adapter);
+        viewModel.all(getContext());
+        homeViewModel.listFoodLive.observe(getViewLifecycleOwner(), foods -> {
+            listFood.clear();
+            listFood.addAll(foods);
+        });
+        viewModel.listHistory.observe(getViewLifecycleOwner(), carts -> {
+            listCart.clear();
+            listCart.addAll(carts);
+        });
+        viewModel.state.observe(getViewLifecycleOwner(), asyncState -> {
+            if (asyncState == AsyncState.SUCCESS) {
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history, container, false);
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

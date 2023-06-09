@@ -37,4 +37,10 @@
     <string name="total">Tổng tiền:</string>
     <string name="place_my_order">Đặt hàng ngay</string>
     <string name="cart_empty"><![CDATA[< giỏ hàng trống >]]></string>
+    <string name="waiting_confirm">Chờ xác nhận</string>
+    <string name="confirmed">Đã xác nhận</string>
+    <string name="delivered">Đã giao đơn</string>
+    <string name="time_comfirm">Thời gian xác nhận</string>
+    <string name="time_deliver">Thời gian nhận đơn</string>
+    <string name="list_order">Các đơn hàng đã đặt</string>
 </resources>

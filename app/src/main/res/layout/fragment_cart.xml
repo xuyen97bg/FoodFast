@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             android:text="@string/cart_detail" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -122,6 +122,7 @@
                     </TableRow>
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/submit"
                         style="@style/font_18_red_bold"
                         android:layout_marginHorizontal="10dp"
                         android:background="@drawable/bg_btn_second"

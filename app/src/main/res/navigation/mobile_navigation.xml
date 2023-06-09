@@ -27,12 +27,17 @@
         android:id="@+id/navigation_cart"
         android:name="com.example.foodfast.ui.cart.CartFragment"
         android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_navigation_cart_to_finishOrderFragment"
+            app:destination="@id/finishOrderFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_history"
         android:name="com.example.foodfast.ui.history.HistoryFragment"
         android:label="fragment_history"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history" >
+    </fragment>
     <fragment
         android:id="@+id/foodDetailFragment"
         android:name="com.example.foodfast.ui.home.FoodDetailFragment"
@@ -43,4 +48,12 @@
         android:name="com.example.foodfast.ui.home.DashboardFragment"
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/finishOrderFragment"
+        android:name="com.example.foodfast.ui.cart.FinishOrderFragment"
+        android:label="FinishOrderFragment" >
+        <action
+            android:id="@+id/action_finishOrderFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
 </navigation>

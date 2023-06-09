@@ -1,25 +1,35 @@
 package com.example.foodfast.ui.cart;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.foodfast.MainActivity;
+import com.example.foodfast.R;
+import com.example.foodfast.data.model.Account;
 import com.example.foodfast.data.model.AsyncState;
 import com.example.foodfast.data.model.Cart;
 import com.example.foodfast.data.model.Food;
 import com.example.foodfast.data.network.SessionManager;
+import com.example.foodfast.databinding.DialogChooseAddressShipBinding;
 import com.example.foodfast.databinding.FragmentCartBinding;
 import com.example.foodfast.ui.cart.adapter.CartAdapter;
 import com.example.foodfast.ui.home.HomeViewModel;
 import com.example.foodfast.utils.Utils;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -28,6 +38,8 @@ public class CartFragment extends Fragment {
     private FragmentCartBinding binding;
     Cart cart = null;
     List<Food> foods = null;
+
+    Account account = null;
     HomeViewModel viewModel;
     String id;
 
@@ -82,11 +94,62 @@ public class CartFragment extends Fragment {
                       binding.total.setText(String.format("%s $", Utils.convertMoney(tong.get())));
                       binding.feeShip.setText("10.000 $");
                       binding.discount.setText("-10.000 $");
+                      cart.setTotal(tong.get());
                       binding.subTotal.setText(String.format("%s $", Utils.convertMoney(tong.get())));
+                      binding.submit.setOnClickListener(v -> {
+                         createDialogInputAddress();
+                      });
                   }
                }
            }
         });
+    }
+    private void createDialogInputAddress() {
+        //Get account
+        viewModel.getAcc(id);
+        Dialog dialog = new Dialog(getContext());
+        DialogChooseAddressShipBinding bindingDialog = DialogChooseAddressShipBinding.inflate(getLayoutInflater());
+        viewModel.account.observe(getViewLifecycleOwner(),account -> {
+            if(account!= null){
+                this.account = account;
+                if(bindingDialog.your.isChecked()){
+                    bindingDialog.address.setText(account.getAddress());
+                }
+            }
+        });
+        dialog.setContentView(bindingDialog.getRoot());
+        dialog.getWindow().setLayout(
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.background_dialog);
+        bindingDialog.your.setOnClickListener(v1 -> {
+            if(account != null){
+                bindingDialog.address.setText(account.getAddress());
+            }
+            bindingDialog.address.setEnabled(false);
+        });
+        bindingDialog.orther.setOnClickListener(v1 -> {
+            bindingDialog.address.setText("");
+            bindingDialog.address.setEnabled(true);
+            bindingDialog.address.setFocusable(true);
+        });
+        bindingDialog.cancel.setOnClickListener(v -> dialog.dismiss());
+        bindingDialog.submit.setOnClickListener(v1 -> {
+            String address = bindingDialog.address.getText().toString();
+            if(address.isEmpty()){
+                Toast.makeText(getContext(), "Bạn vui lòng nhập địa chỉ nhận hàng.", Toast.LENGTH_SHORT).show();
+            }else {
+                cart.setAddress(address);
+                cart.setStatus(0);
+                cart.setCreateAt(Calendar.getInstance().getTimeInMillis());
+                cart.setUpdateAt(Calendar.getInstance().getTimeInMillis());
+                viewModel.createOrder(getContext(),cart);
+                ((MainActivity)getActivity()).navigateTo(R.id.action_navigation_cart_to_finishOrderFragment);
+                dialog.dismiss();
+            }
+        });
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
     }
 
     @Override

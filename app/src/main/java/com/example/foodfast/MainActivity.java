@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         //Get Cart
         SessionManager sessionManager = new SessionManager(this);
         String id = sessionManager.fetchId();
-        if(id!=null){
+        if(!id.isEmpty()){
             viewModel.getCart(this, id);
         }
         badge = binding.navView.getOrCreateBadge(R.id.navigation_cart);
