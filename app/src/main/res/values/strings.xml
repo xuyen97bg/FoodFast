@@ -43,4 +43,6 @@
     <string name="time_comfirm">Thời gian xác nhận</string>
     <string name="time_deliver">Thời gian nhận đơn</string>
     <string name="list_order">Các đơn hàng đã đặt</string>
+    <string name="thank_you_order_success">Cảm ơn bạn!\nĐặt hàng thành công!</string>
+    <string name="back_home">Trở lại trang chủ</string>
 </resources>
