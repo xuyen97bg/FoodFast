@@ -4,6 +4,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.text.Html;
 import android.text.Spanned;
@@ -64,5 +66,11 @@ public class Utils {
         Date date = new Date(c);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm aa");
         return sdf.format(date);
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnected();
     }
 }

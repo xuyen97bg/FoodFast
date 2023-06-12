@@ -6,24 +6,45 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.bumptech.glide.Glide;
+import com.example.foodfast.data.model.Notify;
 import com.example.foodfast.databinding.FragmentNotificationsBinding;
-import com.example.foodfast.ui.home.HomeViewModel;
+import com.example.foodfast.ui.notify.adapter.NotificationAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NotificationsFragment extends Fragment {
     private FragmentNotificationsBinding binding;
+    private final List<Notify> list = new ArrayList<>();
+    private NotificationAdapter adapter;
 
-    HomeViewModel viewModel ;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-        viewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
-        return root;
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initUiAndData();
+    }
+
+    private void initUiAndData() {
+        NotificationViewModel viewModel = new ViewModelProvider(this).get(NotificationViewModel.class);
+        //SetUp recycleview
+        adapter = new NotificationAdapter(getContext(), list, viewModel::setReadingNotification);
+        binding.recyclerView.setAdapter(adapter);
+        viewModel.allNotification(getContext());
+        viewModel.listNotification.observe(getViewLifecycleOwner(), notifies -> {
+            list.clear();
+            list.addAll(notifies);
+            adapter.notifyDataSetChanged();
+        });
     }
 
     @Override

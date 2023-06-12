@@ -45,4 +45,9 @@
     <string name="list_order">Các đơn hàng đã đặt</string>
     <string name="thank_you_order_success">Cảm ơn bạn!\nĐặt hàng thành công!</string>
     <string name="back_home">Trở lại trang chủ</string>
+    <string name="order_success">Bạn vừa đặt thành công đơn hàng</string>
+    <string name="three_hour_old">3 giờ trước</string>
+    <string name="lose_internet">Lỗi kết nỗi INTERNET</string>
+    <string name="order_comfirm">Đơn hàng của bạn đã được xác nhận</string>
+    <string name="order_finish">Đơn hàng của bạn đã giao thành công</string>
 </resources>

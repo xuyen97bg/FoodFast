@@ -21,7 +21,6 @@ public class FinishOrderFragment extends Fragment{
         binding = FragmentFinishOrderBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -30,7 +29,6 @@ public class FinishOrderFragment extends Fragment{
                     .navigateTo(R.id.action_finishOrderFragment_to_navigation_home)
         );
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

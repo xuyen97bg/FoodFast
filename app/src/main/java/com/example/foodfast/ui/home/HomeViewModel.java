@@ -80,7 +80,7 @@ public class HomeViewModel extends ViewModel {
         state.setValue(AsyncState.LOADING);
         Utils.requestPermissions();
         databaseReference = FirebaseDatabase.getInstance().getReference(FOOD_REFERENCE);
-        if (isNetworkAvailable(context)) {
+        if (Utils.isNetworkAvailable(context)) {
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
@@ -114,7 +114,7 @@ public class HomeViewModel extends ViewModel {
         state.setValue(AsyncState.LOADING);
         Utils.requestPermissions();
         databaseReference = FirebaseDatabase.getInstance().getReference(FOOD_REFERENCE).child(id);
-        if (isNetworkAvailable(context)) {
+        if (Utils.isNetworkAvailable(context)) {
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
@@ -166,7 +166,7 @@ public class HomeViewModel extends ViewModel {
         state.setValue(AsyncState.LOADING);
         Utils.requestPermissions();
         databaseReference = FirebaseDatabase.getInstance().getReference(ACCOUNT_REFERENCE);
-        if (isNetworkAvailable(context)) {
+        if (Utils.isNetworkAvailable(context)) {
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
@@ -249,7 +249,7 @@ public class HomeViewModel extends ViewModel {
         state.setValue(AsyncState.LOADING);
         Utils.requestPermissions();
         databaseReference = FirebaseDatabase.getInstance().getReference(ACCOUNT_REFERENCE).child(account.getId());
-        if (isNetworkAvailable(context)) {
+        if (Utils.isNetworkAvailable(context)) {
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
@@ -300,7 +300,7 @@ public class HomeViewModel extends ViewModel {
         state.setValue(AsyncState.LOADING);
         Utils.requestPermissions();
         databaseReference = FirebaseDatabase.getInstance().getReference(CATEGORY_REFERENCE);
-        if (isNetworkAvailable(context)) {
+        if (Utils.isNetworkAvailable(context)) {
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
@@ -358,7 +358,7 @@ public class HomeViewModel extends ViewModel {
         state.setValue(AsyncState.LOADING);
         Utils.requestPermissions();
         databaseReference = FirebaseDatabase.getInstance().getReference(CATEGORY_REFERENCE).child(category.getId());
-        if (isNetworkAvailable(context)) {
+        if (Utils.isNetworkAvailable(context)) {
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
@@ -432,7 +432,7 @@ public class HomeViewModel extends ViewModel {
     }
     public void createCart(final Context context, String id) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(CART_REFERENCE).child(id);
-        if (isNetworkAvailable(context)) {
+        if (Utils.isNetworkAvailable(context)) {
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -463,11 +463,6 @@ public class HomeViewModel extends ViewModel {
         String uniqueKey = databaseReference.push().getKey();
         databaseReference.child(uniqueKey).setValue(cart);
         getCart(context, cart.getId());
-    }
-    public boolean isNetworkAvailable(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        return networkInfo != null && networkInfo.isConnected();
     }
     // check if there is any food in the database
     public boolean anyFoodExists(DataSnapshot dataSnapshot) {

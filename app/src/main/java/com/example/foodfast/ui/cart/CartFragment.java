@@ -27,6 +27,8 @@ import com.example.foodfast.databinding.DialogChooseAddressShipBinding;
 import com.example.foodfast.databinding.FragmentCartBinding;
 import com.example.foodfast.ui.cart.adapter.CartAdapter;
 import com.example.foodfast.ui.home.HomeViewModel;
+import com.example.foodfast.ui.notify.NotificationViewModel;
+import com.example.foodfast.ui.notify.TypeNotification;
 import com.example.foodfast.utils.Utils;
 
 import java.util.Calendar;
@@ -38,9 +40,9 @@ public class CartFragment extends Fragment {
     private FragmentCartBinding binding;
     Cart cart = null;
     List<Food> foods = null;
-
     Account account = null;
     HomeViewModel viewModel;
+    NotificationViewModel notificationViewModel;
     String id;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -53,6 +55,7 @@ public class CartFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(getActivity()).get(HomeViewModel.class);
+        notificationViewModel = new ViewModelProvider(getActivity()).get(NotificationViewModel.class);
         initUiAndData();
     }
 
@@ -144,8 +147,9 @@ public class CartFragment extends Fragment {
                 cart.setCreateAt(Calendar.getInstance().getTimeInMillis());
                 cart.setUpdateAt(Calendar.getInstance().getTimeInMillis());
                 viewModel.createOrder(getContext(),cart);
-                ((MainActivity)getActivity()).navigateTo(R.id.action_navigation_cart_to_finishOrderFragment);
+                notificationViewModel.createNotification(getContext(), TypeNotification.ORDER);
                 dialog.dismiss();
+                ((MainActivity)getActivity()).navigateTo(R.id.action_navigation_cart_to_finishOrderFragment);
             }
         });
         dialog.setCanceledOnTouchOutside(true);

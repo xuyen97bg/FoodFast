@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@drawable/bg_item_notifition_unread">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/icon_notifition"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="25dp"
+        app:srcCompat="@drawable/ic_notifition" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/title"
+        style="@style/font_16_black_medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:lineHeight="24sp"
+        android:layout_toEndOf="@+id/icon_notifition"
+        android:layout_alignParentTop="true"
+        android:lines="2"
+        android:text="@string/order_success" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/font_14_gray_regular"
+        android:text="@string/three_hour_old"
+        android:layout_toEndOf="@+id/icon_notifition"
+        android:layout_below="@id/title"/>
+
+</RelativeLayout>
