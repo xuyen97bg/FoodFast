@@ -55,6 +55,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.itemView.setOnClickListener(v -> iClick.iclick(notifition));
         if(notifition.getStatus() ==1){
             holder.binding.getRoot().setBackgroundResource(R.drawable.bg_item_notifition_read);
+        }else {
+            holder.binding.getRoot().setBackgroundResource(R.drawable.bg_item_notifition_unread);
         }
     }
 

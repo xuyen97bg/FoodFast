@@ -36,7 +36,7 @@
     <string name="code_discount">Mã giảm giá:</string>
     <string name="total">Tổng tiền:</string>
     <string name="place_my_order">Đặt hàng ngay</string>
-    <string name="cart_empty"><![CDATA[< giỏ hàng trống >]]></string>
+    <string name="cart_empty">giỏ hàng trống</string>
     <string name="waiting_confirm">Chờ xác nhận</string>
     <string name="confirmed">Đã xác nhận</string>
     <string name="delivered">Đã giao đơn</string>
@@ -50,4 +50,5 @@
     <string name="lose_internet">Lỗi kết nỗi INTERNET</string>
     <string name="order_comfirm">Đơn hàng của bạn đã được xác nhận</string>
     <string name="order_finish">Đơn hàng của bạn đã giao thành công</string>
+    <string name="no_food">không có món ăn</string>
 </resources>

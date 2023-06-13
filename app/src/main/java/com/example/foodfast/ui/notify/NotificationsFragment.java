@@ -33,9 +33,9 @@ public class NotificationsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initUiAndData();
     }
-
+    NotificationViewModel viewModel;
     private void initUiAndData() {
-        NotificationViewModel viewModel = new ViewModelProvider(this).get(NotificationViewModel.class);
+        viewModel = new ViewModelProvider(this).get(NotificationViewModel.class);
         //SetUp recycleview
         adapter = new NotificationAdapter(getContext(), list, viewModel::setReadingNotification);
         binding.recyclerView.setAdapter(adapter);
@@ -45,6 +45,12 @@ public class NotificationsFragment extends Fragment {
             list.addAll(notifies);
             adapter.notifyDataSetChanged();
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        viewModel.allNotification(getContext());
     }
 
     @Override

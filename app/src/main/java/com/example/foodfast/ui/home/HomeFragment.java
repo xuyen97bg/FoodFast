@@ -86,6 +86,11 @@ public class HomeFragment extends Fragment {
         binding.recyclerView.setAdapter(adapter);
         viewModel.all();
         viewModel.listFoodLive.observe(getViewLifecycleOwner(),foods -> {
+            if(!foods.isEmpty()){
+                binding.empty.setVisibility(View.GONE);
+            }else {
+                binding.empty.setVisibility(View.VISIBLE);
+            }
             list.clear();
             list.addAll(foods);
             adapter.notifyDataSetChanged();
