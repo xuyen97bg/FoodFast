@@ -59,7 +59,12 @@
                             android:drawablePadding="2dp"
                             android:drawableStart="@drawable/ic_location"/>
                     </FrameLayout>
-
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:id="@+id/login"
+                        android:src="@drawable/login"
+                        android:contentDescription="@string/no_img" />
                     <ImageView
                         android:id="@+id/avatar"
                         android:layout_width="32dp"

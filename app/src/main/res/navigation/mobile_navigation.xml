@@ -16,6 +16,7 @@
         <action
             android:id="@+id/action_navigation_home_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
+
     </fragment>
 
     <fragment

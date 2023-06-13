@@ -1,10 +1,12 @@
 package com.example.foodfast.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +25,7 @@ import com.example.foodfast.data.network.DatabaseTableName;
 import com.example.foodfast.databinding.FragmentHomeBinding;
 import com.example.foodfast.data.model.Category;
 import com.example.foodfast.data.model.Food;
+import com.example.foodfast.login.AccountActivity;
 import com.example.foodfast.ui.home.adapter.CategoryAdapter;
 import com.example.foodfast.ui.home.adapter.FoodAdapter;
 
@@ -100,6 +103,13 @@ public class HomeFragment extends Fragment {
                 ((MainActivity)getActivity())
                         .navigateTo(R.id.action_navigation_home_to_dashboardFragment));
 
+        binding.login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AccountActivity.class);
+                startActivity(intent);
+            }
+        });
         binding.searchLayout.setStartIconOnClickListener(v -> {
             String keyWord = binding.search.getText().toString();
             if (!keyWord.isEmpty()){
