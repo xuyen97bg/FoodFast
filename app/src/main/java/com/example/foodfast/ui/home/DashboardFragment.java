@@ -68,9 +68,7 @@ public class DashboardFragment extends Fragment {
         int price = Integer.parseInt(binding.price.getText().toString());
         int discount = Integer.parseInt(binding.discount.getText().toString());
         String description = binding.description.getText().toString();
-        int category = Integer.parseInt(binding.category.getText().toString());
-        Category category1 = new Category("-NWWb5is-8kkMVFmkvqH","Burger","https://firebasestorage.googleapis.com/v0/b/duanagile-39543.appspot.com/o/-NWWb5is-8kkMVFmkvqH%2Fcover_photo%2Fimg_category_1.png?alt=media&token=bd4a7c90-7f37-454e-af3e-78b8a5595b8a");
-        viewModel.add(getContext(),discount,description,price,title,category1,coverPhotoURL,"100 gr meat + onion + tomato + Lettuce cheese");
+        viewModel.add(getContext(),discount,description,price,title,"-NWWb5is-8kkMVFmkvqH",coverPhotoURL,"100 gr meat + onion + tomato + Lettuce cheese");
     }
 
     private void pickImage() {

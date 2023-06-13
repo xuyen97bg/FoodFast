@@ -75,8 +75,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="25dp"
+            android:layout_marginHorizontal="0dp"
             style="@style/font_27_black_medium"
             android:layout_below="@+id/layout_amount"
+            android:layout_centerHorizontal="true"
             android:text="Chicken Burger Promo Pack" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -86,6 +88,7 @@
             android:paddingHorizontal="25dp"
             style="@style/font_14_primary_bold"
             android:layout_below="@+id/title"
+            android:layout_centerHorizontal="true"
             android:text="$25000" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -96,6 +99,7 @@
             style="@style/font_12_grey_medium"
             android:textColor="@color/black"
             android:layout_below="@+id/price"
+            android:layout_centerHorizontal="true"
             app:lineHeight="22sp"
             android:text="@string/describe_example" />
 

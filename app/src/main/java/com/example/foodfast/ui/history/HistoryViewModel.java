@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.foodfast.data.model.AsyncState;
 import com.example.foodfast.data.model.Cart;
+import com.example.foodfast.data.network.DatabaseTableName;
 import com.example.foodfast.data.network.SessionManager;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,10 +17,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class HistoryViewModel extends ViewModel {
-    public static String HISTORY_REFERENCE = "History";
     private DatabaseReference databaseReference;
     public MutableLiveData<AsyncState> state = new MutableLiveData<>();
     public MutableLiveData<List<Cart>> listHistory = new MutableLiveData<>();
@@ -32,7 +33,7 @@ public class HistoryViewModel extends ViewModel {
         if(!id.isEmpty()){
             state.setValue(AsyncState.LOADING);
             List<Cart> historis = new ArrayList<>();
-            databaseReference = FirebaseDatabase.getInstance().getReference(HISTORY_REFERENCE).child(id);
+            databaseReference = FirebaseDatabase.getInstance().getReference(DatabaseTableName.HISTORY_REFERENCE).child(id);
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -42,6 +43,7 @@ public class HistoryViewModel extends ViewModel {
                             history.setId(snapshot.getKey());
                             historis.add(history);
                         }
+                        Collections.reverse(historis);
                         listHistory.setValue(historis);
                         state.setValue(AsyncState.SUCCESS);
                     } else {

@@ -6,21 +6,20 @@ public class Food {
     private int price;
     private int discount;
     private String description;
-    private Category category;
+    private String categoryId;
     private String urlImage;
-
     private String ingredient;
 
     public Food() {
     }
 
-    public Food(String id, String title, int price, int discount, String description, Category category, String urlImage, String ingredient) {
+    public Food(String id, String title, int price, int discount, String description, String categoryId, String urlImage, String ingredient) {
         this.id = id;
         this.title = title;
         this.price = price;
         this.discount = discount;
         this.description = description;
-        this.category = category;
+        this.categoryId = categoryId;
         this.urlImage = urlImage;
         this.ingredient = ingredient;
     }
@@ -73,12 +72,12 @@ public class Food {
         this.title = title;
     }
 
-    public Category getCategory() {
-        return category;
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getIngredient() {

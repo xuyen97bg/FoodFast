@@ -19,6 +19,7 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.foodfast.MainActivity;
 import com.example.foodfast.R;
+import com.example.foodfast.data.network.DatabaseTableName;
 import com.example.foodfast.databinding.FragmentHomeBinding;
 import com.example.foodfast.data.model.Category;
 import com.example.foodfast.data.model.Food;
@@ -61,6 +62,11 @@ public class HomeFragment extends Fragment {
         List<Category> listCategory = new ArrayList<>();
         CategoryAdapter categoryAdapter = new CategoryAdapter(getContext(),listCategory,category -> {
             //handle load food
+            if(category.getId().equals(DatabaseTableName.ID_ALL_CATEGORY)){
+                viewModel.all();
+            }else {
+                viewModel.filterFood(getContext(),category);
+            }
         });
         binding.recyclerCategory.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
         binding.recyclerCategory.setAdapter(categoryAdapter);
@@ -88,6 +94,15 @@ public class HomeFragment extends Fragment {
         binding.avatar.setOnClickListener(v ->
                 ((MainActivity)getActivity())
                         .navigateTo(R.id.action_navigation_home_to_dashboardFragment));
+
+        binding.searchLayout.setStartIconOnClickListener(v -> {
+            String keyWord = binding.search.getText().toString();
+            if (!keyWord.isEmpty()){
+                viewModel.searchFood(getContext(),keyWord);
+            }else {
+                viewModel.all();
+            }
+        });
     }
 
     @Override

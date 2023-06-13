@@ -3,20 +3,16 @@ package com.example.foodfast.data.model;
 public class Category {
     private String id;
     private String name;
-
     private String imageUrl;
-
     private boolean isSelected = false;
 
     public Category() {
     }
-
     public Category(String id, String name, String imageUrl) {
         this.id = id;
         this.name = name;
         this.imageUrl = imageUrl;
     }
-
     public Category(String name) {
         this.name = name;
     }
