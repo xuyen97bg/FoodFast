@@ -7,11 +7,11 @@
         <entry key="..\:/quan_ly_du_an/app/src/main/res/drawable/cs_bg_lam_phan_hoi.xml" value="0.1" />
         <entry key="..\:/quan_ly_du_an/app/src/main/res/drawable/cs_edittext.xml" value="0.1" />
         <entry key="..\:/quan_ly_du_an/app/src/main/res/drawable/ic_back.xml" value="0.1" />
-        <entry key="..\:/quan_ly_du_an/app/src/main/res/layout/activity_account.xml" value="0.1" />
+        <entry key="..\:/quan_ly_du_an/app/src/main/res/layout/activity_account.xml" value="0.2" />
         <entry key="..\:/quan_ly_du_an/app/src/main/res/layout/activity_intro.xml" value="0.24895833333333334" />
-        <entry key="..\:/quan_ly_du_an/app/src/main/res/layout/activity_login.xml" value="0.24895833333333334" />
+        <entry key="..\:/quan_ly_du_an/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/quan_ly_du_an/app/src/main/res/layout/activity_main.xml" value="0.24895833333333334" />
-        <entry key="..\:/quan_ly_du_an/app/src/main/res/layout/activity_sing_up.xml" value="0.23489583333333333" />
+        <entry key="..\:/quan_ly_du_an/app/src/main/res/layout/activity_sing_up.xml" value="0.25" />
         <entry key="..\:/quan_ly_du_an/app/src/main/res/layout/dialog_choose_address_ship.xml" value="0.24895833333333334" />
         <entry key="..\:/quan_ly_du_an/app/src/main/res/layout/dialog_datepicker.xml" value="0.24895833333333334" />
         <entry key="..\:/quan_ly_du_an/app/src/main/res/layout/fragment_cart.xml" value="0.24895833333333334" />
@@ -23,6 +23,7 @@
         <entry key="..\:/quan_ly_du_an/app/src/main/res/layout/item_cart.xml" value="0.24895833333333334" />
         <entry key="..\:/quan_ly_du_an/app/src/main/res/layout/item_category.xml" value="0.24895833333333334" />
         <entry key="..\:/quan_ly_du_an/app/src/main/res/layout/item_food.xml" value="0.24895833333333334" />
+        <entry key="..\:/quan_ly_du_an/app/src/main/res/layout/item_notifition.xml" value="0.24895833333333334" />
         <entry key="..\:/quan_ly_du_an/app/src/main/res/menu/bottom_nav_menu.xml" value="0.24895833333333334" />
       </map>
     </option>

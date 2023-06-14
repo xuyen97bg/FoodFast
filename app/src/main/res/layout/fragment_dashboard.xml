@@ -124,10 +124,11 @@
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_menu_agenda"
             android:contentDescription="@string/no_img" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
 
             <RadioButton
                 android:id="@+id/male"
@@ -141,8 +142,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/female" />
-        </RadioGroup>
 
+    </LinearLayout>
         <ImageView
             android:id="@+id/url_image"
             android:layout_width="100dp"

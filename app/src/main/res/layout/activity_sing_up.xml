@@ -1,129 +1,308 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_1">
     <LinearLayout
         android:layout_width="match_parent"
-        android:background="@color/orange"
-        android:layout_height="50dp">
+        android:layout_height="60dp">
         <ImageView
             android:id="@+id/img_back"
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:src="@drawable/ic_back"/>
+
+        <ImageView
+            android:layout_width="339dp"
+            android:layout_height="153dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo1" />
+
+
     </LinearLayout>
+
     <LinearLayout
-        android:layout_centerInParent="true"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Đăng Ký"
-            android:gravity="center"
-            android:textColor="@color/orange"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            />
-        <TextView
-            android:layout_marginTop="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Username"
             android:layout_marginStart="10dp"
-            android:textColor="#000"
-            />
+            android:layout_marginTop="30dp"
+            android:text="Username"
+            android:textColor="#000" />
+
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:scaleType="centerCrop"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_user_1"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_user_1" />
+
             <EditText
+                android:id="@+id/edt_email"
                 android:layout_width="match_parent"
-                android:textColorHint="@color/orange"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:id="@+id/edt_email"
                 android:background="@android:color/transparent"
-                android:hint="Nhập Email"/>
+                android:hint="Nhập Email"
+                android:textColorHint="@color/second" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="5dp"
-            android:background="@android:color/darker_gray"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:textColor="#000"
-            android:layout_marginStart="10dp"
-            android:text="PassWord"/>
+            android:text="PassWord"
+            android:textColor="#000" />
+
         <LinearLayout
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
             android:orientation="horizontal"
-            android:weightSum="5"
-            >
+            android:weightSum="5">
+
             <ImageView
                 android:layout_width="0dp"
-                android:layout_weight="0.4"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
-                android:src="@drawable/password"/>
+                android:layout_weight="0.4"
+                android:src="@drawable/password" />
+
             <EditText
-                android:layout_width="0dp"
-                android:layout_weight="4.2"
-                android:textColorHint="@color/orange"
-                android:layout_height="wrap_content"
                 android:id="@+id/edt_mat_khau"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:inputType="textPassword"
+                android:layout_weight="4.2"
                 android:background="@android:color/transparent"
-                android:hint="Nhập Mật Khẩu"/>
+                android:hint="Nhập Mật Khẩu"
+                android:inputType="textPassword"
+                android:textColorHint="@color/second" />
+
             <ImageView
 
-                android:layout_width="0dp"
-                android:layout_weight="0.4"
                 android:id="@+id/img_show_hide"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
                 android:layout_marginEnd="30dp"
-                android:src="@drawable/eyes"/>
+                android:layout_weight="0.4"
+                android:src="@drawable/eyes" />
         </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="5dp"
-            android:background="@android:color/darker_gray"/>
+
         <TextView
-            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingRight="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Fist Name"
+            android:textColor="#000" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.4"
+                android:src="@drawable/user1" />
+
+            <EditText
+                android:id="@+id/edt_fist_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="4.2"
+                android:background="@android:color/transparent"
+                android:hint="Nhập Họ Tên"
+                android:textColorHint="@color/second" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Last Name"
+            android:textColor="#000" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.4"
+                android:src="@drawable/user1" />
+
+            <EditText
+                android:id="@+id/edt_last_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="4.2"
+                android:background="@android:color/transparent"
+                android:hint="Nhập Tên Đệm"
+                android:textColorHint="@color/second" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Phone"
+            android:textColor="#000" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.4"
+                android:src="@drawable/phone" />
+
+            <EditText
+                android:id="@+id/edt_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="4.2"
+                android:background="@android:color/transparent"
+                android:hint="Nhập Số Điện Thoại"
+                android:textColorHint="@color/second" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Address"
+            android:textColor="#000" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.4"
+                android:src="@drawable/location" />
+
+            <EditText
+                android:id="@+id/edt_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="4.2"
+                android:background="@android:color/transparent"
+                android:hint="Nhập Địa Chỉ"
+                android:textColorHint="@color/second" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <ImageView
+                android:id="@+id/img_birthday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/no_img"
+                android:src="@android:drawable/ic_menu_agenda" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+
+            <RadioButton
+                android:id="@+id/blo_male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/male" />
+
+            <RadioButton
+                android:id="@+id/blo_female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/female" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/url_image_avartar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#EEE"
+            android:contentDescription="@string/no_img"
+            android:src="@android:drawable/ic_menu_report_image" />
+
+
+        <TextView
+            android:id="@+id/tv_dang_ky"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/cs_bg_lam_phan_hoi"
             android:paddingLeft="40dp"
             android:paddingTop="10dp"
-            android:layout_gravity="center"
-            android:textSize="20sp"
-            android:id="@+id/tv_dang_ky"
+            android:paddingRight="40dp"
+            android:paddingBottom="10dp"
             android:text="Đăng Ký"
-            android:textStyle="bold"
             android:textColor="#fff"
-            android:background="@drawable/cs_bg_lam_phan_hoi"
-            />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 </RelativeLayout>

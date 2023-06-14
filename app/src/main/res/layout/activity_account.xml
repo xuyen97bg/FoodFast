@@ -6,7 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:background="#ff835f"
+        android:background="#feffb3"
         android:weightSum="7"
         android:layout_height="50dp">
         <ImageView
@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:gravity="center|end"
             android:textSize="16sp"
-            android:textColor="#fff"
+            android:textColor="#0C0A0A"
             android:textStyle="bold"
             android:id="@+id/tv_dang_nhap"
             android:layout_marginEnd="4dp"
@@ -33,7 +33,7 @@
             android:layout_weight="1.5"
             android:gravity="center|end"
             android:textSize="16sp"
-            android:textColor="#fff"
+            android:textColor="#FF0C0A0A"
             android:id="@+id/tv_dang_ky"
             android:textStyle="bold"
             android:layout_height="match_parent"
