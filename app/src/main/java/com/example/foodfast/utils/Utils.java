@@ -15,6 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.example.foodfast.R;
 import com.example.foodfast.databinding.DialogShowErrorBinding;
+import com.google.firebase.database.DataSnapshot;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
 
@@ -68,9 +69,19 @@ public class Utils {
         return sdf.format(date);
     }
 
+    public static String convertDateType2(long c){
+        Date date = new Date(c);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(date);
+    }
+
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnected();
+    }
+
+    public static boolean hasData(DataSnapshot dataSnapshot) {
+        return dataSnapshot.getChildrenCount() > 0;
     }
 }

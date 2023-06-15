@@ -51,4 +51,6 @@
     <string name="order_comfirm">Đơn hàng của bạn đã được xác nhận</string>
     <string name="order_finish">Đơn hàng của bạn đã giao thành công</string>
     <string name="no_food">không có món ăn</string>
+    <string name="information">Thông tin cá nhân</string>
+    <string name="resume">Hồ sơ của bạn</string>
 </resources>

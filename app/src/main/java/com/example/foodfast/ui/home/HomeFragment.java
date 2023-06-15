@@ -6,12 +6,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,19 +19,20 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.foodfast.MainActivity;
 import com.example.foodfast.R;
-import com.example.foodfast.data.network.DatabaseTableName;
-import com.example.foodfast.databinding.FragmentHomeBinding;
 import com.example.foodfast.data.model.Category;
 import com.example.foodfast.data.model.Food;
-import com.example.foodfast.login.AccountActivity;
+import com.example.foodfast.data.network.DatabaseTableName;
+import com.example.foodfast.data.network.SessionManager;
+import com.example.foodfast.databinding.FragmentHomeBinding;
 import com.example.foodfast.ui.home.adapter.CategoryAdapter;
 import com.example.foodfast.ui.home.adapter.FoodAdapter;
+import com.example.foodfast.ui.information.InformationActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
-
+    public static String ID = "id";
     private FragmentHomeBinding binding;
 
     HomeViewModel viewModel;
@@ -89,9 +88,9 @@ public class HomeFragment extends Fragment {
         binding.recyclerView.setAdapter(adapter);
         viewModel.all();
         viewModel.listFoodLive.observe(getViewLifecycleOwner(),foods -> {
-            if(!foods.isEmpty()){
+            if (!foods.isEmpty()) {
                 binding.empty.setVisibility(View.GONE);
-            }else {
+            } else {
                 binding.empty.setVisibility(View.VISIBLE);
             }
             list.clear();
@@ -99,22 +98,23 @@ public class HomeFragment extends Fragment {
             adapter.notifyDataSetChanged();
         });
 
-        binding.avatar.setOnClickListener(v ->
-                ((MainActivity)getActivity())
-                        .navigateTo(R.id.action_navigation_home_to_dashboardFragment));
-
-        binding.login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AccountActivity.class);
+        binding.avatar.setOnClickListener(v -> {
+            String id = new SessionManager(getContext()).fetchId();
+            if(id != null ){
+                Intent intent = new Intent(getActivity(), InformationActivity.class);
+                intent.putExtra(ID,id);
                 startActivity(intent);
+            }else {
+                //Login
             }
+
         });
+
         binding.searchLayout.setStartIconOnClickListener(v -> {
             String keyWord = binding.search.getText().toString();
-            if (!keyWord.isEmpty()){
-                viewModel.searchFood(getContext(),keyWord);
-            }else {
+            if (!keyWord.isEmpty()) {
+                viewModel.searchFood(getContext(), keyWord);
+            } else {
                 viewModel.all();
             }
         });

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.circularreveal.CircularRevealRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_cart_detail_fragment"
+    tools:context=".ui.information.InformationActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3FFFFFFF"
+        app:elevation="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#3FFFFFFF"
+            android:elevation="0dp"
+            android:gravity="center"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Light"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/font_16_black_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/resume" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layout_avt"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        app:cardCornerRadius="60dp"
+        app:cardElevation="0dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_avt"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:srcCompat="@drawable/img_avatar" />
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/information_label"
+        style="@style/font_16_black_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_avt"
+        android:layout_alignParentStart="true"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/information" />
+
+    <TableLayout
+        android:id="@+id/infor_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/information_label"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_information"
+        android:padding="16dp">
+
+        <TableRow>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/font_14_black_medium"
+                android:gravity="start|center_vertical"
+                android:paddingTop="4dp"
+                android:text="Tên của bạn" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/name"
+                style="@style/font_14_black_medium"
+                android:layout_weight="1"
+                android:gravity="end|center_vertical"
+                android:paddingTop="4dp"
+                android:text="Nguyễn Thanh Xuyến" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="14dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/font_14_black_medium"
+                android:gravity="start|center_vertical"
+                android:paddingTop="4dp"
+                android:text="Ngày sinh" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/birthday"
+                style="@style/font_14_black_medium"
+                android:layout_weight="1"
+                android:gravity="end|center_vertical"
+                android:paddingTop="4dp"
+                android:text="20/02/2000" />
+        </TableRow>
+
+        <TableRow  android:layout_marginTop="14dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/font_14_black_medium"
+                android:gravity="start|center_vertical"
+                android:paddingTop="4dp"
+                android:text="Giới tính" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/gender"
+                style="@style/font_14_black_medium"
+                android:layout_weight="1"
+                android:gravity="end|center_vertical"
+                android:paddingTop="4dp"
+                android:text="nam" />
+        </TableRow>
+
+    </TableLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/contact_label"
+        style="@style/font_16_black_bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/infor_layout"
+        android:layout_alignParentStart="true"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="30dp"
+        android:text="Thông tin liên lạc" />
+
+    <TableLayout
+        android:id="@+id/contact_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contact_label"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_information"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="16dp">
+
+        <TableRow>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/font_14_black_medium"
+                android:gravity="start|center_vertical"
+                android:paddingTop="4dp"
+                android:layout_marginEnd="20dp"
+                android:text="Địa chỉ" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/address"
+                style="@style/font_14_black_medium"
+                android:layout_weight="1"
+                app:lineHeight="22sp"
+                android:gravity="start|center_vertical"
+                android:paddingTop="4dp"
+                android:text="123 Trịnh Văn Bô, Nam Từ Liêm, Hà Nội" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="14dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/font_14_black_medium"
+                android:gravity="start|center_vertical"
+                android:paddingTop="4dp"
+                android:layout_marginEnd="20dp"
+                android:text="Số điện thoại" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/phone"
+                style="@style/font_14_black_medium"
+                android:layout_weight="1"
+                app:lineHeight="20sp"
+                android:gravity="end|center_vertical"
+                android:paddingTop="4dp"
+                android:text="0123456789" />
+        </TableRow>
+
+    </TableLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_log_out"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:text="Đăng xuất"
+        style="@style/font_14_white_medium"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        app:backgroundTint="@null"
+        android:background="@drawable/bg_btn_primary"/>
+
+</com.google.android.material.circularreveal.CircularRevealRelativeLayout>

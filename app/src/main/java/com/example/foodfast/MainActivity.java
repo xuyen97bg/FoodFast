@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
         //Get Cart
         SessionManager sessionManager = new SessionManager(this);
         String id = sessionManager.fetchId();
-//        if (!id.isEmpty()) {
-//            viewModel.getCart(this, id);
-//        }
+        if (id != null) {
+            viewModel.getCart(this, id);
+        }
         badge = binding.navView.getOrCreateBadge(R.id.navigation_cart);
         viewModel.cart.observe(this, cart -> {
             badge.setNumber(cart.getCartItems().size());

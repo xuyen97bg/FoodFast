@@ -9,14 +9,16 @@ public class Account {
     private long birthday;
     private String phoneNumber;
     private String address;
-    private int role; //0-Nữ 1-Nam
+    private int gender;//0-Nữ 1-Nam
+    private int role; //0-customer, 1-owner
 
     private String imageUrl;
 
     public Account() {
     }
 
-    public Account(String id, String username, String password, String fistName, String lastName, long birthday, String phoneNumber, String address, int role, String imageUrl) {
+
+    public Account(String id, String username, String password, String fistName, String lastName, long birthday, String phoneNumber, String address, int gender, int role, String imageUrl) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -25,11 +27,26 @@ public class Account {
         this.birthday = birthday;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.gender = gender;
         this.role = role;
         this.imageUrl = imageUrl;
     }
 
-    public Account(String username, String password, String fistName, String lastName, long birthday, String phoneNumber, String address, int role) {
+    public Account(String username, String password, String fistName, String lastName, long birthday, String phoneNumber, String address, int gender, int role, String imageUrl) {
+        this.username = username;
+        this.password = password;
+        this.fistName = fistName;
+        this.lastName = lastName;
+        this.birthday = birthday;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.gender = gender;
+        this.role = role;
+        this.imageUrl = imageUrl;
+    }
+
+    public Account(String username, String password, String fistName, String lastName, long birthday,
+                   String phoneNumber, String address, int role) {
         this.username = username;
         this.password = password;
         this.fistName = fistName;
@@ -118,5 +135,13 @@ public class Account {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
     }
 }
