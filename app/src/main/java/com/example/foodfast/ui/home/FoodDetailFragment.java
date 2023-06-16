@@ -1,5 +1,6 @@
 package com.example.foodfast.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.example.foodfast.data.model.CartItem;
 import com.example.foodfast.data.model.Food;
 import com.example.foodfast.data.network.SessionManager;
 import com.example.foodfast.databinding.FragmentFoodDetailBinding;
+import com.example.foodfast.ui.security.SecurityActivity;
 import com.example.foodfast.utils.Utils;
 
 import java.util.List;
@@ -76,6 +78,10 @@ public class FoodDetailFragment extends Fragment {
         });
         binding.btnPlus.setOnClickListener(v -> binding.amount.setText(++amount + ""));
         binding.btnAdd.setOnClickListener(v -> {
+            String id2 = sessionManager.fetchId();
+            if(id2 == null){
+                startActivity(new Intent(getContext(), SecurityActivity.class));
+            }
             if(cart != null){
                 int index = asyncCartItem();
                 if(index != -1){

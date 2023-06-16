@@ -11,6 +11,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.foodfast.data.network.SessionManager;
 import com.example.foodfast.databinding.ActivityMainBinding;
 import com.example.foodfast.ui.home.HomeViewModel;
+import com.example.foodfast.ui.information.InformationViewModel;
 import com.example.foodfast.ui.notify.NotificationViewModel;
 import com.google.android.material.badge.BadgeDrawable;
 
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     BadgeDrawable badgeNotification;
     HomeViewModel viewModel;
     NotificationViewModel notificationViewModel;
+    InformationViewModel informationViewModel ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,14 +31,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         notificationViewModel = new ViewModelProvider(this).get(NotificationViewModel.class);
+        informationViewModel = new ViewModelProvider(this).get(InformationViewModel.class);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);
         //badge on top cart- bottom nav
-
         badge = binding.navView.getOrCreateBadge(R.id.navigation_cart);
+        badge.setVisible(false);
         viewModel.cart.observe(this, cart -> {
-            badge.setNumber(cart.getCartItems().size());
-            badge.setVisible(!cart.getCartItems().isEmpty());
+            if (cart == null){
+                badge.setVisible(false);
+            }else {
+                badge.setNumber(cart.getCartItems().size());
+                badge.setVisible(!cart.getCartItems().isEmpty());
+            }
         });
         badgeNotification = binding.navView.getOrCreateBadge(R.id.navigation_notifications);
         notificationViewModel.indexUnread.observe(this, integer -> {
@@ -57,12 +65,12 @@ public class MainActivity extends AppCompatActivity {
             badge.setVisible(false);
             badgeNotification.setVisible(false);
             notificationViewModel.listNotification.setValue(null);
+            informationViewModel.account.setValue(null);
         }else {
-            badge.setVisible(true);
-            badgeNotification.setVisible(true);
-            viewModel.getCart(this, id);
+            viewModel.getCart(this,id);
             //Get Notification
             notificationViewModel.allNotification(this);
+            informationViewModel.getAccount(this,id);
         }
     }
 }

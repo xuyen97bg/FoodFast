@@ -521,6 +521,7 @@ public class HomeViewModel extends ViewModel {
     //HISTORY
     public void createOrder(Cart cart) {
         FirebaseDatabase.getInstance().getReference(DatabaseTableName.CART_REFERENCE).child(cart.getId()).removeValue();
+        this.cart.setValue(null);
         databaseReference = FirebaseDatabase.getInstance().getReference(DatabaseTableName.HISTORY_REFERENCE).child(cart.getId());
         String uniqueKey = databaseReference.push().getKey();
         databaseReference.child(uniqueKey).setValue(cart);

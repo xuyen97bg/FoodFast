@@ -67,7 +67,6 @@ public class CartFragment extends Fragment {
             //Get all Foods
             viewModel.all();
             viewModel.listFoodLive.observe(getViewLifecycleOwner(), listFood -> foods = listFood);
-            viewModel.getCart(getContext(), id);
             viewModel.cart.observe(getViewLifecycleOwner(), cart1 -> cart = cart1);
             //Setup recycle view
             viewModel.state.observe(getViewLifecycleOwner(),asyncState -> {

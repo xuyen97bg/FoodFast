@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.foodfast.MainActivity;
@@ -27,6 +28,7 @@ import com.example.foodfast.databinding.FragmentHomeBinding;
 import com.example.foodfast.ui.home.adapter.CategoryAdapter;
 import com.example.foodfast.ui.home.adapter.FoodAdapter;
 import com.example.foodfast.ui.information.InformationActivity;
+import com.example.foodfast.ui.information.InformationViewModel;
 import com.example.foodfast.ui.security.SecurityActivity;
 
 import java.util.ArrayList;
@@ -35,9 +37,8 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     public static String ID = "id";
     private FragmentHomeBinding binding;
-
     HomeViewModel viewModel;
-
+    InformationViewModel informationViewModel ;
     List<Food> list = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -50,6 +51,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(getActivity()).get(HomeViewModel.class);
+        informationViewModel = new ViewModelProvider(getActivity()).get(InformationViewModel.class);
         initUiAndData();
     }
 
@@ -118,6 +120,13 @@ public class HomeFragment extends Fragment {
                 viewModel.searchFood(getContext(), keyWord);
             } else {
                 viewModel.all();
+            }
+        });
+        informationViewModel.account.observe(getViewLifecycleOwner(),account -> {
+            if (account != null){
+                Glide.with(getContext()).load(account.getImageUrl()).into(binding.avatar);
+            }else {
+                binding.avatar.setImageResource(R.drawable.ic_user_1);
             }
         });
 

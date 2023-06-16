@@ -43,7 +43,6 @@ public class NotificationsFragment extends Fragment {
             viewModel.setReadingNotification(notify,id);
         });
         binding.recyclerView.setAdapter(adapter);
-        viewModel.allNotification(getContext());
         viewModel.listNotification.observe(getViewLifecycleOwner(), notifies -> {
             list.clear();
             if(id != null){
