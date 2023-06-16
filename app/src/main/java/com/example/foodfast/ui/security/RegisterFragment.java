@@ -55,7 +55,7 @@ public class RegisterFragment extends Fragment {
         binding.pickImage.setOnClickListener(v -> pickImage());
         viewModel.loginState.observe(getViewLifecycleOwner(), asyncState -> {
             if (asyncState == AsyncState.SUCCESS) {
-                Toast.makeText(getContext(), "Đăng ký tài khoản thành công", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
             }
         });
         viewModel.checkUsernameState.observe(getViewLifecycleOwner(), asyncState -> {

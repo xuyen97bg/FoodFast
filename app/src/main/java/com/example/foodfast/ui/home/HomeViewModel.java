@@ -519,12 +519,11 @@ public class HomeViewModel extends ViewModel {
         databaseReference.setValue(cart);
     }
     //HISTORY
-    public void createOrder(Context context,Cart cart) {
+    public void createOrder(Cart cart) {
         FirebaseDatabase.getInstance().getReference(DatabaseTableName.CART_REFERENCE).child(cart.getId()).removeValue();
         databaseReference = FirebaseDatabase.getInstance().getReference(DatabaseTableName.HISTORY_REFERENCE).child(cart.getId());
         String uniqueKey = databaseReference.push().getKey();
         databaseReference.child(uniqueKey).setValue(cart);
-        getCart(context, cart.getId());
     }
     // check if there is any food in the database
     public boolean anyFoodExists(DataSnapshot dataSnapshot) {

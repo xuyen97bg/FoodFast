@@ -15,10 +15,20 @@
         android:padding="20dp"
         android:layout_marginBottom="1dp"
         style="@style/font_16_black_bold"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="#F3F3F3"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/empty"
+        style="@style/font_14_gray_regular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:text="Không có thông báo" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"

@@ -43,6 +43,7 @@ public class HistoryFragment extends Fragment {
     }
 
     private void initUiAndData() {
+        binding.empty.setVisibility(View.VISIBLE);
         adapter = new HistoryAdapter(getContext(), listCart, listFood);
         binding.recyclerView.setAdapter(adapter);
         viewModel.all(getContext());
@@ -55,11 +56,12 @@ public class HistoryFragment extends Fragment {
             if(carts != null){
                 listCart.addAll(carts);
             }
-        });
-        viewModel.state.observe(getViewLifecycleOwner(), asyncState -> {
-            if (asyncState == AsyncState.SUCCESS) {
-                adapter.notifyDataSetChanged();
+            if (listCart.isEmpty()){
+                binding.empty.setVisibility(View.VISIBLE);
+            }else {
+                binding.empty.setVisibility(View.GONE);
             }
+            adapter.notifyDataSetChanged();
         });
     }
 

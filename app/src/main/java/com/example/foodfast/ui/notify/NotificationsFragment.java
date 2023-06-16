@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.foodfast.data.model.Notify;
+import com.example.foodfast.data.network.SessionManager;
 import com.example.foodfast.databinding.FragmentNotificationsBinding;
 import com.example.foodfast.ui.notify.adapter.NotificationAdapter;
 
@@ -21,7 +22,7 @@ public class NotificationsFragment extends Fragment {
     private FragmentNotificationsBinding binding;
     private final List<Notify> list = new ArrayList<>();
     private NotificationAdapter adapter;
-
+    String id;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
@@ -35,14 +36,24 @@ public class NotificationsFragment extends Fragment {
     }
     NotificationViewModel viewModel;
     private void initUiAndData() {
+        id = new SessionManager(getContext()).fetchId();
         viewModel = new ViewModelProvider(this).get(NotificationViewModel.class);
         //SetUp recycleview
-        adapter = new NotificationAdapter(getContext(), list, viewModel::setReadingNotification);
+        adapter = new NotificationAdapter(getContext(), list, notify -> {
+            viewModel.setReadingNotification(notify,id);
+        });
         binding.recyclerView.setAdapter(adapter);
         viewModel.allNotification(getContext());
         viewModel.listNotification.observe(getViewLifecycleOwner(), notifies -> {
             list.clear();
-            list.addAll(notifies);
+            if(id != null){
+                list.addAll(notifies);
+            }
+            if (list.isEmpty()){
+                binding.empty.setVisibility(View.VISIBLE);
+            }else {
+                binding.empty.setVisibility(View.GONE);
+            }
             adapter.notifyDataSetChanged();
         });
     }

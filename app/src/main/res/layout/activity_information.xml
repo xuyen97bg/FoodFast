@@ -172,7 +172,7 @@
                 style="@style/font_14_black_medium"
                 android:layout_weight="1"
                 app:lineHeight="22sp"
-                android:gravity="start|center_vertical"
+                android:gravity="end|center_vertical"
                 android:paddingTop="4dp"
                 android:text="123 Trịnh Văn Bô, Nam Từ Liêm, Hà Nội" />
         </TableRow>

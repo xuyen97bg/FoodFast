@@ -41,7 +41,7 @@ public class InformationActivity extends AppCompatActivity {
         viewModel.account.observe(this, account -> {
             if (isFist) {
                 Glide.with(this).load(account.getImageUrl()).into(binding.imgAvt);
-                binding.name.setText(String.format("%s %s", account.getLastName(), account.getLastName()));
+                binding.name.setText(String.format("%s %s", account.getLastName(), account.getFistName()));
                 binding.address.setText(account.getAddress());
                 binding.birthday.setText(Utils.convertDateType2(account.getBirthday()));
                 binding.phone.setText(account.getPhoneNumber());

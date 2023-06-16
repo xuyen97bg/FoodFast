@@ -151,7 +151,7 @@ public class CartFragment extends Fragment {
                 cart.setStatus(0);
                 cart.setCreateAt(Calendar.getInstance().getTimeInMillis());
                 cart.setUpdateAt(Calendar.getInstance().getTimeInMillis());
-                viewModel.createOrder(getContext(),cart);
+                viewModel.createOrder(cart);
                 notificationViewModel.createNotification(getContext(), TypeNotification.ORDER);
                 dialog.dismiss();
                 ((MainActivity)getActivity()).navigateTo(R.id.action_navigation_cart_to_finishOrderFragment);

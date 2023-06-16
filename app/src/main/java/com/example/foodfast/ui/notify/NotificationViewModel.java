@@ -37,50 +37,54 @@ public class NotificationViewModel extends ViewModel {
 
     public void allNotification(Context context) {
         state.setValue(AsyncState.LOADING);
-        FirebaseDatabase.getInstance().getReference(NOTIFICATION_REFERENCE)
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (Utils.isNetworkAvailable(context))
-                            if (hasData(dataSnapshot)) {
-                                List<Notify> notifies = new ArrayList<>();
-                                int countNotificationUnread = 0;
-                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                    Notify notification = snapshot.getValue(Notify.class);
-                                    notification.setId(snapshot.getKey());
-                                    notifies.add(notification);
-                                    countNotificationUnread += (notification.getStatus() == 0 ? 1 : 0);
+        String id = new SessionManager(context).fetchId();
+        if (id != null) {
+            FirebaseDatabase.getInstance().getReference(NOTIFICATION_REFERENCE).child(id)
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (Utils.isNetworkAvailable(context))
+                                if (hasData(dataSnapshot)) {
+                                    List<Notify> notifies = new ArrayList<>();
+                                    int countNotificationUnread = 0;
+                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                        Notify notification = snapshot.getValue(Notify.class);
+                                        notification.setId(snapshot.getKey());
+                                        notifies.add(notification);
+                                        countNotificationUnread += (notification.getStatus() == 0 ? 1 : 0);
+                                    }
+                                    indexUnread.setValue(countNotificationUnread);
+                                    Collections.reverse(notifies);
+                                    listNotification.setValue(notifies);
+                                    state.setValue(AsyncState.SUCCESS);
+                                } else {
+                                    state.setValue(AsyncState.FAIL);
                                 }
-                                indexUnread.setValue(countNotificationUnread);
-                                Collections.reverse(notifies);
-                                listNotification.setValue(notifies);
-                                state.setValue(AsyncState.SUCCESS);
-                            } else {
+                            else {
                                 state.setValue(AsyncState.FAIL);
+                                Toast.makeText(context, R.string.lose_internet, Toast.LENGTH_SHORT).show();
                             }
-                        else {
-                            state.setValue(AsyncState.FAIL);
-                            Toast.makeText(context, R.string.lose_internet, Toast.LENGTH_SHORT).show();
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                    }
-                });
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                        }
+                    });
+        }
+
     }
 
-    public void setReadingNotification(Notify notification) {
+    public void setReadingNotification(Notify notification,String id) {
         notification.setStatus(1);
         FirebaseDatabase.getInstance()
-                .getReference(NOTIFICATION_REFERENCE)
+                .getReference(NOTIFICATION_REFERENCE).child(id)
                 .child(notification.getId())
                 .setValue(notification);
     }
 
-    public void addNotification(Context context, Notify notification) {
+    public void addNotification(Context context, Notify notification, String id) {
         if (Utils.isNetworkAvailable(context)) {
-            DatabaseReference database = FirebaseDatabase.getInstance().getReference(NOTIFICATION_REFERENCE);
+            DatabaseReference database = FirebaseDatabase.getInstance().getReference(NOTIFICATION_REFERENCE).child(id);
             String uniqueKey = database.push().getKey();
             notification.setId(uniqueKey);
             database.child(uniqueKey).setValue(notification);
@@ -92,7 +96,7 @@ public class NotificationViewModel extends ViewModel {
     public void createNotification(Context context, TypeNotification type) {
         String id = new SessionManager(context).fetchId();
         this.addNotification(context,
-                new Notify(id, System.currentTimeMillis(),type.getTitle(context), type.getType()));
+                new Notify(id, System.currentTimeMillis(),type.getTitle(context), type.getType()),id);
     }
     public boolean hasData(DataSnapshot dataSnapshot) {
         return dataSnapshot.getChildrenCount() > 0;
