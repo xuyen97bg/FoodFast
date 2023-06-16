@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_1"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.circularreveal.CircularRevealRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#3FFFFFFF"
+            app:elevation="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#5FFFFFFF"
+                android:elevation="0dp"
+                android:gravity="center"
+                android:theme="@style/ThemeOverlay.MaterialComponents.Light"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/btn_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_back"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/font_16_black_bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Đăng ký tài khoản" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <com.google.android.material.carousel.MaskableFrameLayout
+            android:layout_below="@id/app_bar_layout"
+            android:id="@+id/layout_avt"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                app:cardCornerRadius="80dp"
+                app:cardElevation="0dp"
+                app:strokeColor="#FFF0F0"
+                app:strokeWidth="14dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFF0F0"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/img_camera" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/pick_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="10dp"
+                app:srcCompat="@drawable/ic_edit" />
+
+        </com.google.android.material.carousel.MaskableFrameLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_avt"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:paddingHorizontal="20dp">
+
+            <TableRow>
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/font_16_gray_regular"
+                    android:layout_weight="1"
+                    android:text="Họ"
+                    android:layout_marginEnd="20dp"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/font_16_gray_regular"
+                    android:layout_weight="3"
+                    android:text="Tên"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black" />
+            </TableRow>
+
+            <TableRow>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/lastname"
+                    style="@style/font_14_gray_regular"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="20dp"
+                    android:height="34dp"
+                    android:background="@drawable/bg_input_register"
+                    android:paddingHorizontal="10dp" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/name"
+                    style="@style/font_14_gray_regular"
+                    android:layout_weight="3"
+                    android:height="34dp"
+                    android:background="@drawable/bg_input_register"
+                    android:paddingHorizontal="10dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/font_16_gray_regular"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"
+                    android:text="Tên tài khoản"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black" />
+            </TableRow>
+
+            <TableRow>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/username"
+                    style="@style/font_14_gray_regular"
+                    android:layout_weight="1"
+                    android:height="34dp"
+                    android:background="@drawable/bg_input_register"
+                    android:paddingHorizontal="10dp" />
+            </TableRow>
+
+            <TableRow>
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/font_16_gray_regular"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"
+                    android:text="Mật khẩu"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black" />
+            </TableRow>
+
+            <TableRow>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/password_til"
+                    style="@style/InputLayoutLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    app:errorEnabled="false"
+                    app:hintEnabled="false"
+                    app:passwordToggleDrawable="@color/show_password_selector"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="0dp"
+                        android:paddingHorizontal="10dp"
+                        android:inputType="textPassword"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </TableRow>
+
+            <TableRow>
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/font_16_gray_regular"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"
+                    android:text="Ngày sinh"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black" />
+            </TableRow>
+
+            <TableRow>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_birthday"
+                    style="@style/InputLayoutLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    app:errorEnabled="false"
+                    app:hintEnabled="false"
+                    app:startIconDrawable="@drawable/ic_date"
+                    app:startIconTint="@color/primary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/birthday"
+                        android:layout_width="match_parent"
+                        android:layout_height="34dp"
+                        android:padding="0dp"
+                        android:hint="dd/mm/yyyy"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </TableRow>
+
+            <TableRow>
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/font_16_gray_regular"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"
+                    android:text="Địa chỉ"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black" />
+            </TableRow>
+
+            <TableRow>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/address"
+                    style="@style/font_14_gray_regular"
+                    android:layout_weight="1"
+                    android:height="34dp"
+                    android:background="@drawable/bg_input_register"
+                    android:paddingHorizontal="10dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/font_16_gray_regular"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"
+                    android:text="Số điện thoại"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black" />
+            </TableRow>
+
+            <TableRow>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phone"
+                    style="@style/font_14_gray_regular"
+                    android:layout_weight="1"
+                    android:height="34dp"
+                    android:background="@drawable/bg_input_register"
+                    android:paddingHorizontal="10dp" />
+            </TableRow>
+
+            <TableRow>
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/font_16_gray_regular"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"
+                    android:text="Giới tính"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black" />
+            </TableRow>
+
+            <TableRow>
+
+                <RadioGroup
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="40dp">
+
+                    <RadioButton
+                        android:id="@+id/male"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="Nam"
+                        android:textSize="14sp" />
+
+                    <RadioButton
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Nữ"
+                        android:textSize="14sp" />
+                </RadioGroup>
+            </TableRow>
+
+            <TableRow android:gravity="center">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_marginVertical="40dp"
+                    android:background="@drawable/bg_btn_primary"
+                    android:text="Đăng ký tài khoản"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:backgroundTint="@null" />
+            </TableRow>
+
+        </TableLayout>
+
+    </com.google.android.material.circularreveal.CircularRevealRelativeLayout>
+
+
+</androidx.core.widget.NestedScrollView>

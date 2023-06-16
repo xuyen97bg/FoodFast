@@ -24,7 +24,7 @@ import java.util.Objects;
 public class FoodDetailFragment extends Fragment {
     private FragmentFoodDetailBinding binding;
     private int amount = 1;
-    private Cart cart;
+    private Cart cart = null;
 
     private CartItem cartItem;
 
@@ -47,15 +47,12 @@ public class FoodDetailFragment extends Fragment {
     private void initUiAndData() {
         SessionManager sessionManager = new SessionManager(requireContext());
         String id = sessionManager.fetchId();
-        if(id == null){
+        if(id != null){
             //Yêu cầu đăng nhập
-            sessionManager.saveId("-NWYZidgj1Tqe4zs80aE");
-            id = "-NWYZidgj1Tqe4zs80aE";
+            viewModel.getCart(getContext(),id);
         }
 
         viewModel.cart.observe(getViewLifecycleOwner(),cart1 -> cart = cart1);
-
-        viewModel.getCart(getContext(),id);
 
         viewModel.foodDetail.observe(getViewLifecycleOwner(), food -> {
             if (food.getTitle() != null) {
@@ -79,15 +76,17 @@ public class FoodDetailFragment extends Fragment {
         });
         binding.btnPlus.setOnClickListener(v -> binding.amount.setText(++amount + ""));
         binding.btnAdd.setOnClickListener(v -> {
-            int index = asyncCartItem();
-            if(index != -1){
-                cart.getCartItems().get(index).setAmountBuy(amount + cart.getCartItems().get(index).getAmountBuy());
-            }else {
-                cartItem.setAmountBuy(amount);
-                cart.getCartItems().add(cartItem);
+            if(cart != null){
+                int index = asyncCartItem();
+                if(index != -1){
+                    cart.getCartItems().get(index).setAmountBuy(amount + cart.getCartItems().get(index).getAmountBuy());
+                }else {
+                    cartItem.setAmountBuy(amount);
+                    cart.getCartItems().add(cartItem);
+                }
+                viewModel.edit(cart);
+                getActivity().onBackPressed();
             }
-            viewModel.edit(cart);
-            getActivity().onBackPressed();
         });
     }
     private int asyncCartItem() {

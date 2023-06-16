@@ -30,9 +30,9 @@ public class HistoryViewModel extends ViewModel {
     public void all(Context context) {
         SessionManager sessionManager = new SessionManager(context);
         String id = sessionManager.fetchId();
-        if(!id.isEmpty()){
+        if(id != null){
             state.setValue(AsyncState.LOADING);
-            List<Cart> historis = new ArrayList<>();
+            List<Cart> histories = new ArrayList<>();
             databaseReference = FirebaseDatabase.getInstance().getReference(DatabaseTableName.HISTORY_REFERENCE).child(id);
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -41,10 +41,10 @@ public class HistoryViewModel extends ViewModel {
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Cart history = snapshot.getValue(Cart.class);
                             history.setId(snapshot.getKey());
-                            historis.add(history);
+                            histories.add(history);
                         }
-                        Collections.reverse(historis);
-                        listHistory.setValue(historis);
+                        Collections.reverse(histories);
+                        listHistory.setValue(histories);
                         state.setValue(AsyncState.SUCCESS);
                     } else {
                         state.setValue(AsyncState.FAIL);
@@ -54,6 +54,9 @@ public class HistoryViewModel extends ViewModel {
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
             });
+        }else {
+            listHistory.setValue(null);
+            state.setValue(AsyncState.FAIL);
         }
     }
     public boolean hasData(DataSnapshot dataSnapshot) {

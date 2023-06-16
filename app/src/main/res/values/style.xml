@@ -23,6 +23,18 @@
         <item name="boxStrokeWidthFocused">0dp</item>
     </style>
 
+    <style name="InputLayoutLogin" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxCornerRadiusTopStart">5dp</item>
+        <item name="boxCornerRadiusTopEnd">5dp</item>
+        <item name="boxCornerRadiusBottomStart">5dp</item>
+        <item name="boxCornerRadiusBottomEnd">5dp</item>
+        <item name="boxStrokeWidth">0.5dp</item>
+        <item name="boxStrokeColor">@color/gray</item>
+        <item name="boxBackgroundColor">#FFFFFF</item>
+        <item name="startIconTint">@color/gray</item>
+        <item name="boxStrokeWidthFocused">0.5dp</item>
+    </style>
+
     <style name="TextCategorySelected">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">18sp</item>
@@ -145,6 +157,12 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">@font/svn_poppins_semi_bold</item>
+    </style>
+
+    <style name="font_16_gray_regular">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/svn_poppins_regular</item>
     </style>
 
     <style name="bottomNav" parent="Widget.MaterialComponents.BottomNavigationView">

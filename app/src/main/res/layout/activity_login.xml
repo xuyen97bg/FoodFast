@@ -22,116 +22,123 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_centerInParent="true"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Đăng Nhập"
             android:gravity="center"
+            android:text="Đăng Nhập"
             android:textColor="@color/second"
             android:textSize="25sp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
+
         <TextView
-            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Username"
             android:layout_marginStart="10dp"
-            android:textColor="#000"
-            />
+            android:layout_marginTop="30dp"
+            android:text="Username"
+            android:textColor="#000" />
+
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:scaleType="centerCrop"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_user_1"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_user_1" />
+
             <EditText
+                android:id="@+id/edt_email"
                 android:layout_width="match_parent"
-                android:textColorHint="@color/second"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:id="@+id/edt_email"
                 android:background="@android:color/transparent"
-                android:hint="Nhập Email"/>
+                android:hint="Nhập Email"
+                android:textColorHint="@color/second" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_margin="5dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:textColor="#000"
-            android:layout_marginStart="10dp"
-            android:text="PassWord"/>
+            android:text="PassWord"
+            android:textColor="#000" />
+
         <LinearLayout
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
             android:orientation="horizontal"
-            android:weightSum="5"
-            >
+            android:weightSum="5">
+
             <ImageView
                 android:layout_width="0dp"
-                android:layout_weight="0.4"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
-                android:src="@drawable/password"/>
+                android:layout_weight="0.4"
+                android:src="@drawable/password" />
+
             <EditText
-                android:layout_width="0dp"
-                android:layout_weight="4.2"
-                android:textColorHint="@color/second"
-                android:layout_height="wrap_content"
                 android:id="@+id/edt_mat_khau"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:inputType="textPassword"
+                android:layout_weight="4.2"
                 android:background="@android:color/transparent"
-                android:hint="Nhập Mật Khẩu"/>
+                android:hint="Nhập Mật Khẩu"
+                android:inputType="textPassword"
+                android:textColorHint="@color/second" />
+
             <ImageView
 
-                android:layout_width="0dp"
-                android:layout_weight="0.4"
                 android:id="@+id/img_show_hide"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
                 android:layout_marginEnd="30dp"
-                android:src="@drawable/eyes"/>
+                android:layout_weight="0.4"
+                android:src="@drawable/eyes" />
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_margin="5dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray" />
+
         <TextView
-            android:layout_marginTop="15dp"
+            android:id="@+id/tv_dang_nhap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingRight="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/cs_bg_lam_phan_hoi"
             android:paddingLeft="40dp"
             android:paddingTop="10dp"
-            android:layout_gravity="center"
-            android:textSize="20sp"
-            android:id="@+id/tv_dang_nhap"
+            android:paddingRight="40dp"
+            android:paddingBottom="10dp"
             android:text="Đăng Nhập"
-            android:textStyle="bold"
             android:textColor="#fff"
-            android:background="@drawable/cs_bg_lam_phan_hoi"
-            />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

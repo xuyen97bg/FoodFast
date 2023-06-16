@@ -26,6 +26,12 @@
             android:theme="@style/ThemeOverlay.MaterialComponents.Light"
             app:layout_scrollFlags="scroll|enterAlways">
 
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_back"/>
+
             <com.google.android.material.textview.MaterialTextView
                 style="@style/font_16_black_bold"
                 android:layout_width="wrap_content"

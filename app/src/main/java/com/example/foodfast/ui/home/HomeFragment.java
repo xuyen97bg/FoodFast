@@ -27,6 +27,7 @@ import com.example.foodfast.databinding.FragmentHomeBinding;
 import com.example.foodfast.ui.home.adapter.CategoryAdapter;
 import com.example.foodfast.ui.home.adapter.FoodAdapter;
 import com.example.foodfast.ui.information.InformationActivity;
+import com.example.foodfast.ui.security.SecurityActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,11 +102,12 @@ public class HomeFragment extends Fragment {
         binding.avatar.setOnClickListener(v -> {
             String id = new SessionManager(getContext()).fetchId();
             if(id != null ){
-                Intent intent = new Intent(getActivity(), InformationActivity.class);
+                Intent intent = new Intent(getContext(), InformationActivity.class);
                 intent.putExtra(ID,id);
                 startActivity(intent);
             }else {
                 //Login
+                startActivity(new Intent(getContext(),SecurityActivity.class));
             }
 
         });
@@ -118,6 +120,8 @@ public class HomeFragment extends Fragment {
                 viewModel.all();
             }
         });
+
+        binding.btnLogin.setOnClickListener(v -> startActivity(new Intent(getContext(),SecurityActivity.class)));
     }
 
     @Override

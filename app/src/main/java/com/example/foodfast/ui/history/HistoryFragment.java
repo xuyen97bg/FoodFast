@@ -52,7 +52,9 @@ public class HistoryFragment extends Fragment {
         });
         viewModel.listHistory.observe(getViewLifecycleOwner(), carts -> {
             listCart.clear();
-            listCart.addAll(carts);
+            if(carts != null){
+                listCart.addAll(carts);
+            }
         });
         viewModel.state.observe(getViewLifecycleOwner(), asyncState -> {
             if (asyncState == AsyncState.SUCCESS) {

@@ -53,4 +53,5 @@
     <string name="no_food">không có món ăn</string>
     <string name="information">Thông tin cá nhân</string>
     <string name="resume">Hồ sơ của bạn</string>
+    <string name="sign_in">Đăng nhập</string>
 </resources>

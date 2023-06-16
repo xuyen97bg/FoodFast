@@ -31,19 +31,12 @@ public class MainActivity extends AppCompatActivity {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);
         //badge on top cart- bottom nav
-        //Get Cart
-        SessionManager sessionManager = new SessionManager(this);
-        String id = sessionManager.fetchId();
-        if (id != null) {
-            viewModel.getCart(this, id);
-        }
+
         badge = binding.navView.getOrCreateBadge(R.id.navigation_cart);
         viewModel.cart.observe(this, cart -> {
             badge.setNumber(cart.getCartItems().size());
             badge.setVisible(!cart.getCartItems().isEmpty());
         });
-        //Get Notification
-        notificationViewModel.allNotification(this);
         badgeNotification = binding.navView.getOrCreateBadge(R.id.navigation_notifications);
         notificationViewModel.indexUnread.observe(this, integer -> {
             badgeNotification.setNumber(integer);
@@ -55,5 +48,21 @@ public class MainActivity extends AppCompatActivity {
         navController.navigate(frangmentRes);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SessionManager sessionManager = new SessionManager(this);
+        String id = sessionManager.fetchId();
+        if(id == null){
+            badge.setVisible(false);
+            badgeNotification.setVisible(false);
+            notificationViewModel.listNotification.setValue(null);
+        }else {
+            badge.setVisible(true);
+            badgeNotification.setVisible(true);
+            viewModel.getCart(this, id);
+            //Get Notification
+            notificationViewModel.allNotification(this);
+        }
+    }
 }
-//login
